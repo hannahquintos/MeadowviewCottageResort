@@ -73,7 +73,7 @@ li{
 
 footer{
   background-color: #2A3662;
-  margin-top: 2em;
+  margin-top: 5em;
 }
 
 #footer{
@@ -107,6 +107,7 @@ h1{
 }
 
 .contentContainer{
+  margin-top: 1em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 50px;
@@ -208,4 +209,26 @@ h1{
 
 .btn a{
   color: white;
+}
+
+.detailsContainer{
+  border: 2px solid #2A3662;
+  border-radius: 30px;
+  margin-top: 2em;
+}
+
+.detailsContent{
+  padding: 70px;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 4em;
+}
+
+.detailsDate{
+  margin-top: 0;
+}
+
+.detailsImg{
+  height: 327px;
+  object-fit: cover;
 }

@@ -20,7 +20,6 @@ export default function ActivitiesList() {
         <h1>Activities</h1>
         <div className="btn"><Link to="/">View Registered Activities</Link></div>
       </div>
-    {/* <div className="cardContainer"> */}
         {
           activities.map((activity) => (
             <Link to={`/activities/${activity._id}`} key={activity._id}>
