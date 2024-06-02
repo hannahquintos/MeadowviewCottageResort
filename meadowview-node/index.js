@@ -6,6 +6,9 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const openweathermap = require("./openweathermap");
+
+
 //DB values
 const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}/`;
 const client = new MongoClient(dbUrl);
@@ -24,6 +27,14 @@ app.use(cors({
 
 
 //API endpoints
+
+/*
+ * returns: an json object of current weather
+ */
+app.get("/api/weather", async (request, response) => {
+  let weather = await openweathermap.getWeather();
+  response.json(weather);
+});
 
 /*
  * returns: an array of events

@@ -73,6 +73,7 @@ li{
 
 footer{
   background-color: #2A3662;
+  margin-top: 2em;
 }
 
 #footer{
@@ -105,7 +106,7 @@ h1{
   padding: 1.5em 0;
 }
 
-.cardContainer{
+.contentContainer{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 50px;
@@ -122,7 +123,14 @@ h1{
 }
 
 .cardText{
-  padding: 0 30px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.cardText p, .cardText h2{
+  margin: 0;
 }
 
 .location{
@@ -134,4 +142,70 @@ h1{
 .location img{
   height: 25px;
   width: 25px;
+}
+
+.pageTitle{
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+}
+
+.pageTitle h1{
+  margin-bottom: 0.15em;
+}
+
+#weatherContainer{
+  margin-top: 1em;
+  border: 2px solid #2A3662;
+  border-radius: 30px;
+  grid-column: 3 / span 1;  /* Placing it in the fourth column */
+  grid-row: 1 / span 2; 
+}
+
+#weatherContent{
+  padding: 2em;
+}
+
+#weatherContent h3{
+  margin-top: 0;
+}
+
+#currentWeather{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+#weatherData{
+  display: flex;
+  flex-direction: column;
+  gap: 1.15em;
+}
+
+#weatherData p{
+  margin: 0;
+}
+
+#temp{
+  font-size: 3em;
+}
+
+#lowHigh{
+  display: flex;
+  gap: 1em;
+}
+
+.bold{
+  font-weight: 700;
+}
+
+.btn{
+  background-color: #2A3662;
+  border-radius: 10px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+}
+
+.btn a{
+  color: white;
 }

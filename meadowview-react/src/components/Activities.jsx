@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import Weather from "./Weather";
 
 export default function ActivitiesList() {
   const [activities, setActivities] = useState([]);
@@ -14,7 +15,12 @@ export default function ActivitiesList() {
   }, []);
 
   return (
-    <div className="cardContainer">
+    <div className="contentContainer">
+      <div className="pageTitle">
+        <h1>Activities</h1>
+        <div className="btn"><Link to="/">View Registered Activities</Link></div>
+      </div>
+    {/* <div className="cardContainer"> */}
         {
           activities.map((activity) => (
             <Link to={`/activities/${activity._id}`} key={activity._id}>
@@ -32,6 +38,7 @@ export default function ActivitiesList() {
             </Link>
           ))
         }
+        <Weather />
     </div>
   );
 }
