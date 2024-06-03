@@ -19,7 +19,7 @@ export default function singleActivity() {
   }, []);
 
   return (
-    <div className="detailsContainer">
+    <div className="border">
         <div className="detailsContent">
             <div>
                 <img className="detailsImg" src={activity.image} alt={activity.activityName} />

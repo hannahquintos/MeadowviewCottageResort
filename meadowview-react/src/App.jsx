@@ -4,6 +4,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Activities from "./pages/Activities";
 import Activity from "./pages/ActivityDetails";
+import CreateActivity from "./pages/CreateActivity";
+import Events from "./pages/Events";
+import Event from "./pages/EventDetails";
+import Equipment from "./pages/Equipment";
+import EquipmentPiece from "./pages/EquipmentDetails";
+
 import './App.css'
 
 function App() {
@@ -16,6 +22,11 @@ function App() {
            <Route path="/" element={<Home />} />
            <Route path="/activities" element={<Activities />} />
            <Route path="/activities/:id" element={<Activity />} />
+           <Route path="/activities/add" element={<CreateActivity />} />
+           <Route path="/events" element={<Events />} />
+           <Route path="/events/:id" element={<Event />} />
+           <Route path="/equipment" element={<Equipment />} />
+           <Route path="/equipment/:id" element={<EquipmentPiece />} />
          </Routes>
        </main>
        <Footer />

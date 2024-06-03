@@ -70,6 +70,27 @@ app.get("/api/activities/:id", async (request, response) => {
   response.json(activity);
 });
 
+// retrieve values from submitted create activity POST form
+app.post("/api/activities/create", async (request, response) => {
+  let status = request.body.status;
+  let activityName = request.body.activityName;
+  let startTime = request.body.startTime;
+  let endTime = request.body.endTime;
+  let location = request.body.email;
+  let image = request.body.city;
+  let description = request.body.description;
+  let newActivity = {
+    "status": status,
+    "activityName": activityName,
+    "startTime": startTime,
+    "endTime": endTime,
+    "location": location,
+    "image": image,
+    "description": description
+  };
+  await addActivity(newActivity);
+});
+
 /*
  * returns: an array of equipment
  */
@@ -130,6 +151,12 @@ async function getSingleActivity(id){
   const activityId = { _id: new ObjectId(String(id)) };
   const result = await db.collection("activities").findOne(activityId); 
   return result;
+}
+
+//Function to insert an activity document
+async function addActivity(activityData) {
+  db = await connection();
+  let status = await db.collection("activities").insertOne(activityData);
 }
 
 //Function to select all documents in the equipment collection

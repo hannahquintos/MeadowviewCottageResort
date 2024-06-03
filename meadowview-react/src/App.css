@@ -20,15 +20,15 @@ img{
 .contentWrapper{
   max-width: 1280px;
   margin: 0;
-  padding: 1em 115px;
+  padding: 0.75em 115px;
 }
 
 header{
   width: 100vw;
-  height: 100px;
   background-color: #2A3662;
   font-family: "Lato", sans-serif;
   color: white;
+  display: inline-block;
 }
 
 #headerContent{
@@ -61,6 +61,7 @@ header{
   display: flex;
   gap: 2em;
   padding: 0;
+  align-items: center;
 }
 
 header a{
@@ -211,7 +212,7 @@ h1{
   color: white;
 }
 
-.detailsContainer{
+.border{
   border: 2px solid #2A3662;
   border-radius: 30px;
   margin-top: 2em;
@@ -224,11 +225,42 @@ h1{
   gap: 4em;
 }
 
-.detailsDate{
+.detailsDate, #detailsAvailability{
   margin-top: 0;
 }
 
 .detailsImg{
   height: 327px;
   object-fit: cover;
+}
+
+.content{
+  padding: 50px 70px;
+}
+
+.cardText .heart{
+  text-align: right;
+  margin-top: -1em;
+}
+
+.cardText .heart img{
+  height: 30px;
+  width: auto;
+}
+
+.detailsInfo .heart{
+  text-align: right;
+}
+
+.detailsInfo .heart img{
+  height: 40px;
+  width: auto;
+}
+
+.colorAvailable{
+  color: #2A3662;
+}
+
+.colorUnavailable{
+  color: #CC5454;
 }
