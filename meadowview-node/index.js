@@ -3,10 +3,9 @@ const express = require("express");
 const cors = require("cors"); //need this to set this API to allow requests from other servers
 const { MongoClient, ObjectId } = require("mongodb");
 const dotenv = require("dotenv");
+const openweathermap = require("./openweathermap");
 
 dotenv.config();
-
-const openweathermap = require("./openweathermap");
 
 
 //DB values
@@ -27,6 +26,54 @@ app.use(cors({
 
 
 //API endpoints
+
+/*
+ * retrieve email and login values from the login form
+ */
+app.post("/api/login", async (request, response) => {
+  const{email, password}=request.body;
+
+  try{
+    const validUser = await checkUser(email, password);
+    if(validUser){
+      response.json("exist");
+    } else{
+      response.json("notexist");
+    }
+  }
+  catch(e){
+    response.json("notexist");
+  }
+
+});
+
+/*
+ * retrieve email and login values from the login form
+ */
+app.post("/api/signup", async (request, response) => {
+  const{email, password}=request.body;
+
+  const newUser = {
+    email: email,
+    password: password
+  };
+
+  try{
+    const validEmail = await checkEmail(email);
+    if(validEmail){
+      response.json("exist");
+    } else{
+      response.json("notexist");
+      console.log("newUser: " + newUser);
+      await addUser(newUser);
+    }
+  }
+  catch(e){
+    response.json("notexist");
+    console.log("error");
+  }
+
+});
 
 /*
  * returns: an json object of current weather
@@ -72,23 +119,57 @@ app.get("/api/activities/:id", async (request, response) => {
 
 // retrieve values from submitted create activity POST form
 app.post("/api/activities/create", async (request, response) => {
-  let status = request.body.status;
+  // let activityName = request.body.activityName;
+  // let startTime = request.body.startTime;
+  // let endTime = request.body.endTime;
+  // let location = request.body.location;
+  // let image = request.body.image;
+  // let description = request.body.description;
+  // let newActivity = {
+  //   "activityName": activityName,
+  //   "startTime": startTime,
+  //   "endTime": endTime,
+  //   "location": location,
+  //   "image": image,
+  //   "description": description
+  // };
+  // await addActivity(newActivity);
+
+  // console.log('Request received');
+  // response.json({ message: 'Test successful' });
+
+  console.log('Request received'); // Debugging statement
+
+  // Logging request body
+  console.log('Request body:', request.body);
+
   let activityName = request.body.activityName;
   let startTime = request.body.startTime;
   let endTime = request.body.endTime;
-  let location = request.body.email;
-  let image = request.body.city;
+  let location = request.body.location;
+  let image = request.body.image;
   let description = request.body.description;
+
   let newActivity = {
-    "status": status,
-    "activityName": activityName,
-    "startTime": startTime,
-    "endTime": endTime,
-    "location": location,
-    "image": image,
-    "description": description
+    activityName: activityName,
+    startTime: startTime,
+    endTime: endTime,
+    location: location,
+    image: image,
+    description: description
   };
+
   await addActivity(newActivity);
+  response.json({ Activity: newActivity });
+
+  // try {
+  //   await addActivity(newActivity);
+  //   // console.log('Activity added:', newActivity); // Debugging statement
+  //   // response.json({ message: 'Activity created successfully' });
+  // } catch (error) {
+  //   console.error('Error adding activity:', error);
+  //   // response.status(500).json({ message: 'Internal server error' });
+  // }
 });
 
 /*
@@ -119,6 +200,26 @@ async function connection() {
   await client.connect();
   db = client.db("MeadowviewDb");
   return db;
+}
+
+//Function to check if user is valid/exists in the system
+async function checkUser(emailIn, passwordIn) {
+  db = await connection();
+  let result = db.collection("users").findOne({email:emailIn, password:passwordIn}); 
+  return result;
+}
+
+//Function to check if email is valid/exists in the system
+async function checkEmail(emailIn) {
+  db = await connection();
+  let result = db.collection("users").findOne({email:emailIn}); 
+  return result;
+}
+
+//Function to insert a user document
+async function addUser(userData) {
+  db = await connection();
+  let status = await db.collection("users").insertOne(userData);
 }
 
 //Function to select all documents in the events collection
