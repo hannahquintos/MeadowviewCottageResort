@@ -18,14 +18,11 @@ export default function singleEquipment() {
     getSingleEquipment(params.id);
   }, []);
 
-    //set text of availablity status
-    var availability;
+    //set text colour of availablity status
     var color;
-    if (equipment.available === true) {
-    availability = "Available";
+    if (equipment.availability === "Available") {
     color = "colorAvailable";
     } else {
-    availability = "Unavailable";
     color = "colorUnavailable";
     }
 
@@ -36,9 +33,9 @@ export default function singleEquipment() {
                 <img className="detailsImg" src={equipment.image} alt={equipment.equipmentName} />
             </div>
             <div className="detailsInfo">
-                <p className={color} id="detailsAvailability">{availability}</p>
+                <p className={color} id="detailsAvailability">{equipment.availability}</p>
                 <h1>{equipment.equipmentName}</h1>
-                <p>{equipment.condition}</p>
+                <p>{equipment.condition} Condition</p>
                 <p>{equipment.description}</p>
                 <div className="btn"><Link to="/">Book</Link></div>
             </div>

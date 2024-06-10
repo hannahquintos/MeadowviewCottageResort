@@ -16,6 +16,9 @@ import EditEvent from "./pages/EditEvent";
 import AdminEvent from "./pages/Admin-EventDetails";
 import Equipment from "./pages/Equipment";
 import EquipmentPiece from "./pages/EquipmentDetails";
+import CreateEquipment from "./pages/CreateEquipment";
+import EditEquipment from "./pages/EditEquipment";
+import AdminEquipment from "./pages/Admin-EquipmentDetails";
 
 import './App.css'
 
@@ -41,6 +44,9 @@ function App() {
            <Route path="/admin/events/:id" element={<AdminEvent />} />
            <Route path="/equipment" element={<Equipment />} />
            <Route path="/equipment/:id" element={<EquipmentPiece />} />
+           <Route path="/admin/equipment/add" element={<CreateEquipment />} />
+           <Route path="/admin/equipment/:id/edit" element={<EditEquipment />} />
+           <Route path="/admin/equipment/:id" element={<AdminEquipment />} />
          </Routes>
        </main>
        <Footer />

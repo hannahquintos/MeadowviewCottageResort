@@ -294,7 +294,7 @@ label{
   font-weight: 500;
 }
 
-input, textarea{
+input, textarea, select{
   width: 800px;
   border-radius: 5px;
   border: solid 0.5px black;

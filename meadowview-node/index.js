@@ -273,6 +273,71 @@ app.get("/api/equipment/:id", async (request, response) => {
   response.json(equipment);
 });
 
+// retrieve values from submitted create equipment POST form
+app.post("/api/equipment/create", async (request, response) => {
+  let equipmentName = request.body.equipmentName;
+  let condition = request.body.condition;
+  let availability = request.body.availability;
+  let image = request.body.image;
+  let description = request.body.description;
+
+  let newEquipment = {
+    equipmentName: equipmentName,
+    condition: condition,
+    availability: availability,
+    image: image,
+    description: description
+  };
+
+  try {
+    await addEquipment(newEquipment);
+    response.json("Equipment successfully created");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
+// retrieve values from submitted edit equipment POST form
+app.post("/api/equipment/update/:id", async (request, response) => {
+  let id = request.params.id;
+  // console.log("Id: " + id);
+  let idFilter = {_id: new ObjectId(String(id))};
+  let equipmentName = request.body.equipmentName;
+  let condition = request.body.condition;
+  let availability = request.body.availability;
+  let image = request.body.image;
+  let description = request.body.description;
+  let equipment = {
+    "equipmentName": equipmentName,
+    "condition": condition,
+    "availability": availability,
+    "image": image,
+    "description": description
+  };
+
+  try {
+    await editEquipment(idFilter, equipment);
+    response.json("Equipment successfully updated");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
+// get equipment to delete
+app.get("/api/equipment/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteEquipment(id);
+    response.json("Equipment successfully deleted");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
 
 //set up server listening
 app.listen(port, () => {
@@ -416,4 +481,35 @@ async function getSingleEquipment(id){
   const equipmentId = { _id: new ObjectId(String(id)) };
   const result = await db.collection("equipment").findOne(equipmentId); 
   return result;
+}
+
+//Function to insert an equipment document
+async function addEquipment(equipmentData) {
+  db = await connection();
+  let status = await db.collection("equipment").insertOne(equipmentData);
+}
+
+//Function to update an equipment document
+async function editEquipment(filter, equipment){
+  db = await connection();
+  const updateEquipment = {
+    $set: {
+      "equipmentName": equipment.equipmentName,
+      "condition": equipment.condition,
+      "availability": equipment.availability,
+      "image": equipment.image,
+      "description": equipment.description
+    },
+  };
+  const result = await db.collection("equipment").updateOne(filter, updateEquipment);
+}
+
+//Function to delete an equipment document
+async function deleteEquipment(id) {
+  db = await connection();
+  const equipmentDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("equipment").deleteOne(equipmentDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
 }

@@ -23,14 +23,11 @@ export default function EquipmentList() {
       {
           equipment.map((equipmentPiece) => {
 
-            //set text of availablity status
-            var availability;
+            //set text colour of availablity status
             var color;
-            if (equipmentPiece.available === true) {
-              availability = "Available";
+            if (equipmentPiece.availability === "Available") {
               color = "colorAvailable";
             } else {
-              availability = "Unavailable";
               color = "colorUnavailable";
             }
 
@@ -39,9 +36,9 @@ export default function EquipmentList() {
                 <div className="card">
                   <img src={equipmentPiece.image} alt={equipmentPiece.equipmentName} />
                   <div className="cardText">
-                    <p className={color}>{availability}</p>
+                    <p className={color}>{equipmentPiece.availability}</p>
                     <h2>{equipmentPiece.equipmentName}</h2>
-                    <p>{equipmentPiece.condition}</p>
+                    <p>{equipmentPiece.condition} Condition</p>
                   </div>
                 </div>
               </Link>
