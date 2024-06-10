@@ -1,31 +1,13 @@
-import {useState, useEffect} from "react";
+import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { Link } from "react-router-dom";
 
-export default function EditActivity() {
-
-    const [activity, setActivity] = useState([]);
-
-    const params = useParams();
-  
-    useEffect(() => {
-      const getSingleActivity = async () => {
-        let response = await fetch(`http://localhost:3000/api/activities/${params.id}`);
-        let data = await response.json();
-        setActivity(data);
-        setFormData(data);
-      }
-      // console.log("params:" + params.id);
-      
-      getSingleActivity(params.id);
-    }, []);
+export default function CreateEvent() {
 
 	const navigate = useNavigate();
 
 	const [formData, setFormData] = useState({
-		activityName: '',
+		eventName: '',
 		startTime: '',
 		endTime: '',
 		location: '',
@@ -45,11 +27,11 @@ export default function EditActivity() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post(`http://localhost:3000/api/activities/update/${params.id}`, formData);
+		const res = await axios.post("http://localhost:3000/api/events/create", formData);
 
 		if (res.status === 200) {
-		alert("Activity successfully updated");
-		navigate(`/admin/activities/${activity._id}`);
+		alert("Event successfully created");
+		navigate("/events");
 		} else {
 		alert("Something went wrong");
 		}
@@ -63,16 +45,16 @@ export default function EditActivity() {
 	<div className="border">
 		<div className="content">
 			<div>
-				<h1 className="adminHeading">Edit Activity</h1>
+				<h1 className="adminHeading">Add New Event</h1>
 			</div>
-            <div className="divider"></div>
+			<div className="divider"></div>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<div>
-						<label htmlFor="activityName">Activity Name</label>
+						<label htmlFor="eventName">Event Name</label>
 					</div>
 					<div>
-						<input id="activityName" type="text" name="activityName" value={formData.activityName} onChange={handleChange}/>
+						<input id="eventName" type="text" name="eventName" value={formData.eventName} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -115,9 +97,8 @@ export default function EditActivity() {
 						<textarea id="description" name="description" value={formData.description} onChange={handleChange}/>
 					</div>
 				</div>
-				<div className="actionBtns">
-                    <div className="btn cancel"><Link to={`/admin/activities/${activity._id}`}>Cancel</Link></div>
-                    <button className="btn form" type="submit">Save</button>
+				<div>
+					<button className="btn form" type="submit">Submit</button>
 				</div>
 			</form>
 		</div>

@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import ActivityDeleteModal from "./modals/ActivityDeleteModal";
+import EventDeleteModal from "./modals/EventDeleteModal";
 
-export default function singleActivity() {
+export default function singleEvent() {
 
   const navigate = useNavigate();
 
@@ -21,14 +21,14 @@ export default function singleActivity() {
     setOpen(false);
   };
 
-  const deleteActivity = async () => {
+  const deleteEvent = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/activities/delete/${params.id}`);
+      const res = await axios.get(`http://localhost:3000/api/events/delete/${params.id}`);
       handleClose();
 
       if (res.status === 200) {
-        alert("Activity successfully deleted");
-        navigate("/activities");
+        alert("Event successfully deleted");
+        navigate("/events");
         } else {
         alert("Something went wrong");
         }
@@ -39,38 +39,38 @@ export default function singleActivity() {
     }
   };
 
-  const [activity, setActivity] = useState([]);
+  const [event, setEvent] = useState([]);
 
   const params = useParams();
 
   useEffect(() => {
-    const getSingleActivity = async () => {
-      let response = await fetch(`http://localhost:3000/api/activities/${params.id}`);
+    const getSingleEvent = async () => {
+      let response = await fetch(`http://localhost:3000/api/events/${params.id}`);
       let data = await response.json();
-      setActivity(data);
+      setEvent(data);
     }
     // console.log("params:" + params.id);
     
-    getSingleActivity(params.id);
+    getSingleEvent(params.id);
   }, []);
 
   return (
     <div className="border">
-      <ActivityDeleteModal open={open} handleClose={handleClose} deleteActivity={deleteActivity}/>
+      <EventDeleteModal open={open} handleClose={handleClose} deleteEvent={deleteEvent}/>
       <div className="detailsContent">
           <div>
-              <img className="detailsImg" src={activity.image} alt={activity.activityName} />
+              <img className="detailsImg" src={event.image} alt={event.eventName} />
           </div>
           <div className="detailsInfo">
-              <p className="detailsDate">{activity.startTime}</p>
-              <h1>{activity.activityName}</h1>
+              <p className="detailsDate">{event.startTime}</p>
+              <h1>{event.eventName}</h1>
               <div className="location">
                   <img src="../src/assets/location-icon.svg" alt="" />
-                  <p>{activity.location}</p>
+                  <p>{event.location}</p>
               </div>
-              <p>{activity.description}</p>
+              <p>{event.description}</p>
               <div className="actionBtns">
-                  <div className="btn edit"><Link to={`/admin/activities/${activity._id}/edit`}>Edit</Link></div>
+                  <div className="btn edit"><Link to={`/admin/events/${event._id}/edit`}>Edit</Link></div>
                   <div className="btn delete" onClick={handleClickOpen}>Delete</div>
               </div>
           </div>

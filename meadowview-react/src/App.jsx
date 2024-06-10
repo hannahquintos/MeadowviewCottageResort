@@ -11,6 +11,9 @@ import EditActivity from "./pages/EditActivity";
 import AdminActivity from "./pages/Admin-ActivityDetails";
 import Events from "./pages/Events";
 import Event from "./pages/EventDetails";
+import CreateEvent from "./pages/CreateEvent";
+import EditEvent from "./pages/EditEvent";
+import AdminEvent from "./pages/Admin-EventDetails";
 import Equipment from "./pages/Equipment";
 import EquipmentPiece from "./pages/EquipmentDetails";
 
@@ -33,6 +36,9 @@ function App() {
            <Route path="/admin/activities/:id/edit" element={<EditActivity />} />
            <Route path="/events" element={<Events />} />
            <Route path="/events/:id" element={<Event />} />
+           <Route path="/admin/events/add" element={<CreateEvent />} />
+           <Route path="/admin/events/:id/edit" element={<EditEvent />} />
+           <Route path="/admin/events/:id" element={<AdminEvent />} />
            <Route path="/equipment" element={<Equipment />} />
            <Route path="/equipment/:id" element={<EquipmentPiece />} />
          </Routes>

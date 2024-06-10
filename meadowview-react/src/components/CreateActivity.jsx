@@ -45,8 +45,9 @@ export default function CreateActivity() {
 	<div className="border">
 		<div className="content">
 			<div>
-				<h1>Add New Activity</h1>
+				<h1 className="adminHeading">Add New Activity</h1>
 			</div>
+			<div className="divider"></div>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<div>
@@ -97,7 +98,7 @@ export default function CreateActivity() {
 					</div>
 				</div>
 				<div>
-					<button type="submit">Submit</button>
+					<button className="btn form" type="submit">Submit</button>
 				</div>
 			</form>
 		</div>

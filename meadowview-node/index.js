@@ -101,6 +101,75 @@ app.get("/api/events/:id", async (request, response) => {
   response.json(event);
 });
 
+// retrieve values from submitted create event POST form
+app.post("/api/events/create", async (request, response) => {
+  let eventName = request.body.eventName;
+  let startTime = request.body.startTime;
+  let endTime = request.body.endTime;
+  let location = request.body.location;
+  let image = request.body.image;
+  let description = request.body.description;
+
+  let newEvent = {
+    eventName: eventName,
+    startTime: startTime,
+    endTime: endTime,
+    location: location,
+    image: image,
+    description: description
+  };
+
+  try {
+    await addEvent(newEvent);
+    response.json("Event successfully created");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
+// retrieve values from submitted edit event POST form
+app.post("/api/events/update/:id", async (request, response) => {
+  let id = request.params.id;
+  // console.log("Id: " + id);
+  let idFilter = {_id: new ObjectId(String(id))};
+  let eventName = request.body.eventName;
+  let startTime = request.body.startTime;
+  let endTime = request.body.endTime;
+  let location = request.body.location;
+  let image = request.body.image;
+  let description = request.body.description;
+  let event = {
+    "eventName": eventName,
+    "startTime": startTime,
+    "endTime": endTime,
+    "location": location,
+    "image": image,
+    "description": description
+  };
+
+  try {
+    await editEvent(idFilter, event);
+    response.json("Event successfully updated");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
+// get activity to delete
+app.get("/api/events/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteEvent(id);
+    response.json("Event successfully deleted");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
 /*
  * returns: an array of activities
  */
@@ -251,6 +320,38 @@ async function getSingleEvent(id){
   const eventId = { _id: new ObjectId(String(id)) };
   const result = await db.collection("events").findOne(eventId); 
   return result;
+}
+
+//Function to insert an event document
+async function addEvent(eventData) {
+  db = await connection();
+  let status = await db.collection("events").insertOne(eventData);
+}
+
+//Function to update an event document
+async function editEvent(filter, event){
+  db = await connection();
+  const updateEvent = {
+    $set: {
+      "eventName": event.eventName,
+      "startTime": event.startTime,
+      "endTime": event.endTime,
+      "location": event.location,
+      "image": event.image,
+      "description": event.description
+    },
+  };
+  const result = await db.collection("events").updateOne(filter, updateEvent);
+}
+
+//Function to delete an event document
+async function deleteEvent(id) {
+  db = await connection();
+  const eventDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("events").deleteOne(eventDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
 }
 
 //Function to select all documents in the activities collection

@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ActivityDeleteModal({ open, handleClose, deleteActivity }) {
+export default function EventDeleteModal({ open, handleClose, deleteEvent }) {
 
   return (
     <Dialog
@@ -16,7 +16,7 @@ export default function ActivityDeleteModal({ open, handleClose, deleteActivity 
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Are you sure you want to delete this activity?"}
+        {"Are you sure you want to delete this event?"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -25,7 +25,7 @@ export default function ActivityDeleteModal({ open, handleClose, deleteActivity 
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={deleteActivity}>Delete</Button>
+        <Button onClick={deleteEvent}>Delete</Button>
       </DialogActions>
     </Dialog>
   );

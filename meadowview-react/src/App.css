@@ -264,3 +264,71 @@ h1{
 .colorUnavailable{
   color: #CC5454;
 }
+
+.actionBtns{
+  display: flex;
+  gap: 0.5em;
+}
+
+.btn.edit{
+  background-color: #FFEEC2;
+}
+
+.btn.edit a{
+  color: black;
+}
+
+.btn.delete{
+  background-color: #CC5454;
+  color: white;
+}
+
+.divider{
+  height: 2px;
+  background-color: #2A3662;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+}
+
+label{
+  font-weight: 500;
+}
+
+input, textarea{
+  width: 800px;
+  border-radius: 5px;
+  border: solid 0.5px black;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+  font-family: "Lato", sans-serif;
+  padding: 0.5em;
+}
+
+input{
+  height: 20px;
+}
+
+textarea{
+  height: 50px;
+}
+
+.btn.form{
+  border: none;
+  color: white;
+  font-size: 1em;
+}
+
+.btn.cancel{
+  background-color: white;
+  border: solid 1.5px #2A3662;
+}
+
+.btn.cancel a{
+  color: #2A3662;
+}
+
+.adminHeading{
+  font-family: "Lato", sans-serif;
+  font-size: 2.5em;
+}
