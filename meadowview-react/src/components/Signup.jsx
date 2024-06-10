@@ -4,34 +4,38 @@ import { useNavigate, Link } from 'react-router-dom';
 
 export default function Signup() {
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+		email: '',
+		password: ''
+	  });
 
-    async function submit(e){
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({
+			...formData,
+			[name]: value
+		});
+	};
+
+    async function handleSubmit(e){
         e.preventDefault();
 
         try{
-            await axios.post("http://localhost:3000/api/signup",{
-                email, password
-            })
-            .then(res=>{
-                if(res.data=="exist"){
-                    //if email already exists in the system, show alert
-                    alert("An account with this email already exists")
-                } else if(res.data=="notexist"){
-                    //if email is does not exist, redirect to home page
-                    history("/");
-                }
-            })
-            .catch(e=>{
-                alert("Invalid email or password");
-                console.log(e);
-            })
+            const res = await axios.post("http://localhost:3000/api/signup", formData);
+
+            if (res.data === "exist") {
+              //if email already exists in the system, show alert
+              alert("An account with this email already exists");
+            } else if (res.data === "notexist") {
+              //if email is does not exist, redirect to home page
+              navigate("/");
+            }
         }
         catch(e){
             console.log(e);
+            alert("Invalid email or password");
         }
     }
 
@@ -39,13 +43,13 @@ export default function Signup() {
     return(
       <div>
         <h1>Sign Up</h1>
-        <form action="POST">
+        <form onSubmit={handleSubmit}>
             <div>
                 <div>
                     <label htmlFor="email">Email</label>
                 </div>
                 <div>
-                    <input type="email" onChange={(e)=>{setEmail(e.target.value)}} name="email" id="email" /> 
+                    <input type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -53,11 +57,11 @@ export default function Signup() {
                     <label htmlFor="password">Password</label>
                 </div>
                 <div>
-                    <input type="password" onChange={(e)=>{setPassword(e.target.value)}} name="password" id="password" /> 
+                    <input type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
-				<button type="submit" onClick={submit}>Sign Up</button>
+				<button type="submit">Sign Up</button>
 			</div>
         </form>
 

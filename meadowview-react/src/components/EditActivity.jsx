@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-export default function CreateActivity() {
+export default function EditActivity() {
+
+    const [activity, setActivity] = useState([]);
+
+    const params = useParams();
+  
+    useEffect(() => {
+      const getSingleActivity = async () => {
+        let response = await fetch(`http://localhost:3000/api/activities/${params.id}`);
+        let data = await response.json();
+        setActivity(data);
+        setFormData(data);
+      }
+      // console.log("params:" + params.id);
+      
+      getSingleActivity(params.id);
+    }, []);
 
 	const navigate = useNavigate();
 
@@ -27,11 +44,11 @@ export default function CreateActivity() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post("http://localhost:3000/api/activities/create", formData);
+		const res = await axios.post(`http://localhost:3000/api/activities/update/${params.id}`, formData);
 
 		if (res.status === 200) {
-		alert("Activity successfully created");
-		navigate("/activities");
+		alert("Activity successfully updated");
+		navigate(`/activities/${activity._id}`);
 		} else {
 		alert("Something went wrong");
 		}
@@ -45,9 +62,10 @@ export default function CreateActivity() {
 	<div className="border">
 		<div className="content">
 			<div>
-				<h1>Add New Activity</h1>
+				<h1>Edit Activity</h1>
 			</div>
 			<form onSubmit={handleSubmit}>
+                {/* <input type="hidden" name="activityId" value={formData._id} /> */}
 				<div>
 					<div>
 						<label htmlFor="activityName">Activity Name</label>

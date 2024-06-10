@@ -43,6 +43,7 @@ app.post("/api/login", async (request, response) => {
   }
   catch(e){
     response.json("notexist");
+    console.log("An error occurred");
   }
 
 });
@@ -70,7 +71,7 @@ app.post("/api/signup", async (request, response) => {
   }
   catch(e){
     response.json("notexist");
-    console.log("error");
+    console.log("An error occurred");
   }
 
 });
@@ -119,30 +120,6 @@ app.get("/api/activities/:id", async (request, response) => {
 
 // retrieve values from submitted create activity POST form
 app.post("/api/activities/create", async (request, response) => {
-  // let activityName = request.body.activityName;
-  // let startTime = request.body.startTime;
-  // let endTime = request.body.endTime;
-  // let location = request.body.location;
-  // let image = request.body.image;
-  // let description = request.body.description;
-  // let newActivity = {
-  //   "activityName": activityName,
-  //   "startTime": startTime,
-  //   "endTime": endTime,
-  //   "location": location,
-  //   "image": image,
-  //   "description": description
-  // };
-  // await addActivity(newActivity);
-
-  // console.log('Request received');
-  // response.json({ message: 'Test successful' });
-
-  console.log('Request received'); // Debugging statement
-
-  // Logging request body
-  console.log('Request body:', request.body);
-
   let activityName = request.body.activityName;
   let startTime = request.body.startTime;
   let endTime = request.body.endTime;
@@ -159,17 +136,55 @@ app.post("/api/activities/create", async (request, response) => {
     description: description
   };
 
-  await addActivity(newActivity);
-  response.json({ Activity: newActivity });
+  try {
+    await addActivity(newActivity);
+    response.json("Activity successfully created");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
 
-  // try {
-  //   await addActivity(newActivity);
-  //   // console.log('Activity added:', newActivity); // Debugging statement
-  //   // response.json({ message: 'Activity created successfully' });
-  // } catch (error) {
-  //   console.error('Error adding activity:', error);
-  //   // response.status(500).json({ message: 'Internal server error' });
-  // }
+// retrieve values from submitted edit activity POST form
+app.post("/api/activities/update/:id", async (request, response) => {
+  let id = request.params.id;
+  // console.log("Id: " + id);
+  let idFilter = {_id: new ObjectId(String(id))};
+  let activityName = request.body.activityName;
+  let startTime = request.body.startTime;
+  let endTime = request.body.endTime;
+  let location = request.body.location;
+  let image = request.body.image;
+  let description = request.body.description;
+  let activity = {
+    "activityName": activityName,
+    "startTime": startTime,
+    "endTime": endTime,
+    "location": location,
+    "image": image,
+    "description": description
+  };
+
+  try {
+    await editActivity(idFilter, activity);
+    response.json("Activity successfully updated");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
+});
+
+// get activity to delete
+app.get("/api/activities/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteActivity(id);
+    response.json("Activity successfully deleted");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
 });
 
 /*
@@ -258,6 +273,32 @@ async function getSingleActivity(id){
 async function addActivity(activityData) {
   db = await connection();
   let status = await db.collection("activities").insertOne(activityData);
+}
+
+//Function to update an activity document
+async function editActivity(filter, activity){
+  db = await connection();
+  const updateActivity = {
+    $set: {
+      "activityName": activity.activityName,
+      "startTime": activity.startTime,
+      "endTime": activity.endTime,
+      "location": activity.location,
+      "image": activity.image,
+      "description": activity.description
+    },
+  };
+  const result = await db.collection("activities").updateOne(filter, updateActivity);
+}
+
+//Function to delete an activity document
+async function deleteActivity(id) {
+  db = await connection();
+  const activityDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("activities").deleteOne(activityDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
 }
 
 //Function to select all documents in the equipment collection
