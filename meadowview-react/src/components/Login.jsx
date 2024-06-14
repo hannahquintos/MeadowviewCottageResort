@@ -19,25 +19,27 @@ export default function Login() {
 		});
 	};
 
-    async function handleSubmit(e){
-        e.preventDefault();
+  axios.defaults.withCredentials = true;
 
-        try{
-            const res = await axios.post("http://localhost:3000/api/login", formData);
+  async function handleSubmit(e){
+      e.preventDefault();
 
-            if (res.data === "exist") {
-              // If the email exists in the system, redirect to the activities page
-              navigate("/activities");
-            } else if (res.data === "notexist") {
-              // If the email does not exist, show alert
-              alert("Incorrect email or password");
-            }
-        }
-        catch(e){
-            console.log(e);
-            alert("Invalid email or password");
-        }
-    }
+      try{
+          const res = await axios.post("http://localhost:3000/api/login", formData);
+
+          if (res.data.status) {
+            // If the email exists in the system, redirect to the activities page
+            navigate("/activities");
+          } else if (res.data === "notexist") {
+            // If the email does not exist, show alert
+            alert("Incorrect email or password");
+          }
+      }
+      catch(e){
+          console.log(e);
+          alert("Invalid email or password");
+      }
+  }
 
 
     return(
@@ -61,7 +63,7 @@ export default function Login() {
                 </div>
             </div>
             <div>
-				<button type="submit">Login</button>
+				<button className="btn form" type="submit">Login</button>
 			</div>
         </form>
 

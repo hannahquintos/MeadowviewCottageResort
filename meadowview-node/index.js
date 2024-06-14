@@ -4,6 +4,9 @@ const cors = require("cors"); //need this to set this API to allow requests from
 const { MongoClient, ObjectId } = require("mongodb");
 const dotenv = require("dotenv");
 const openweathermap = require("./openweathermap");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -17,11 +20,13 @@ const app = express();
 const port = process.env.PORT || "3000";
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); 
+app.use(express.json());
+app.use(cookieParser());
 
 //allow requests from all servers
 app.use(cors({
-  origin: "*"
+  origin: ["http://localhost:5173"],
+  credentials: true
 }));
 
 
@@ -32,11 +37,24 @@ app.use(cors({
  */
 app.post("/api/login", async (request, response) => {
   const{email, password}=request.body;
+  // const hashPassword = await bcrypt.hash(password, 10);
+  // console.log("Hashed Password: " + hashPassword)
 
   try{
-    const validUser = await checkUser(email, password);
-    if(validUser){
-      response.json("exist");
+    const user= await checkEmail(email);
+    if(user){
+      const validPassword = await bcrypt.compare(password, user.password);
+      if(validPassword){
+        // response.json("exist");
+
+        const token = jwt.sign({username: user.email}, process.env.KEY, {expiresIn: '1h'});
+        response.cookie('token', token, {httpOnly: true, maxAge: 360000});
+        return response.json({status: true, message: "exist"})
+
+      } else{
+        response.json("notexist");
+      }
+      // response.json("exist");
     } else{
       response.json("notexist");
     }
@@ -49,14 +67,49 @@ app.post("/api/login", async (request, response) => {
 });
 
 /*
+ * to verify user
+ */
+const verifyUser = async (request, response, next) => {
+  try{
+    const token = request.cookies.token;
+    if(!token){
+      return response.json({status: false, message: "no token"})
+    }
+    const decoded = await jwt.verify(token, process.env.KEY);
+    next()
+
+  } catch(e){
+    return response.json(e);
+  }
+
+};
+
+app.get("/auth/verify", verifyUser, (request, response) => {
+  return response.json({status: true, message: "authorized"});
+});
+
+
+/*
+ * to logout user
+ */
+app.get("/auth/logout", (request, response) => {
+  response.clearCookie("token");
+  return response.json({status: true})
+});
+
+/*
  * retrieve email and login values from the login form
  */
 app.post("/api/signup", async (request, response) => {
-  const{email, password}=request.body;
+  const{email, password, firstName, lastName, phone}=request.body;
+  const hashPassword = await bcrypt.hash(password, 10);
 
   const newUser = {
     email: email,
-    password: password
+    password: hashPassword,
+    firstName: firstName,
+    lastName: lastName,
+    phone: phone
   };
 
   try{
@@ -352,11 +405,11 @@ async function connection() {
 }
 
 //Function to check if user is valid/exists in the system
-async function checkUser(emailIn, passwordIn) {
-  db = await connection();
-  let result = db.collection("users").findOne({email:emailIn, password:passwordIn}); 
-  return result;
-}
+// async function checkUser(emailIn, passwordIn) {
+//   db = await connection();
+//   let result = db.collection("users").findOne({email:emailIn, password:passwordIn}); 
+//   return result;
+// }
 
 //Function to check if email is valid/exists in the system
 async function checkEmail(emailIn) {

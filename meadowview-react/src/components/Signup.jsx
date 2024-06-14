@@ -8,7 +8,10 @@ export default function Signup() {
 
     const [formData, setFormData] = useState({
 		email: '',
-		password: ''
+		password: '',
+    firstName: '',
+    lastName: '',
+    phone: ''
 	  });
 
 	const handleChange = (e) => {
@@ -30,12 +33,12 @@ export default function Signup() {
               alert("An account with this email already exists");
             } else if (res.data === "notexist") {
               //if email is does not exist, redirect to home page
-              navigate("/");
+              navigate("/login");
             }
         }
         catch(e){
             console.log(e);
-            alert("Invalid email or password");
+            alert("Invalid email");
         }
     }
 
@@ -61,7 +64,31 @@ export default function Signup() {
                 </div>
             </div>
             <div>
-				<button type="submit">Sign Up</button>
+                <div>
+                    <label htmlFor="firstName">First Name</label>
+                </div>
+                <div>
+                    <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleChange}/> 
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label htmlFor="lastName">Last Name</label>
+                </div>
+                <div>
+                    <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange}/> 
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label htmlFor="phone">Phone Number</label>
+                </div>
+                <div>
+                    <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange}/> 
+                </div>
+            </div>
+            <div>
+				<button className="btn form" type="submit">Sign Up</button>
 			</div>
         </form>
 
