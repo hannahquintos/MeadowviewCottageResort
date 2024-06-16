@@ -1,4 +1,4 @@
-import AdminActivityDetails from "../components/Admin-ActivityDetails";
+import AdminActivityDetails from "../components/AdminActivityDetails";
 
 export default function Activity() {
     return(

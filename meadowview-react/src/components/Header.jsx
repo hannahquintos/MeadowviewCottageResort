@@ -1,5 +1,6 @@
-import Nav from "./Nav";
-import NavLoggedOut from "./Nav-LoggedOut";
+import GuestNav from "./GuestNav";
+import AdminNav from "./AdminNav";
+import NavLoggedOut from "./NavLoggedOut";
 import React, { useContext } from 'react';
 import useAuth from '../hooks/useAuth';
 
@@ -16,8 +17,10 @@ export default function Header() {
                   <img src="./src/assets/meadowview-logo.svg" alt="" />
                   <h2><a href="/">Meadowview Cottage Resort</a></h2>
               </div>
-              {/* change nav links based on if user is logged in or not */}
-              {auth?.email ? <Nav /> : <NavLoggedOut />}
+              {/* change nav links based on user */}
+              {auth?.role === 'guest' && <GuestNav />}
+              {auth?.role === 'admin' && <AdminNav />}
+              {!auth?.role && <NavLoggedOut />}
           </div>
       </div>
     </header>

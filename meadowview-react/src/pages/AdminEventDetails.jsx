@@ -1,4 +1,4 @@
-import AdminEventDetails from "../components/Admin-EventDetails";
+import AdminEventDetails from "../components/AdminEventDetails";
 
 export default function Event() {
     return(

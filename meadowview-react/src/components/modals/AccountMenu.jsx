@@ -22,7 +22,7 @@ export default function MenuListComposition() {
   const handleLogout = async () => {
     try {
         const res = await axios.get("http://localhost:3000/api/logout");
-        console.log("res: " + res.data);
+        // console.log("res: " + res.data);
 
         if (res.data === "Cookie cleared") {
             setAuth({}); //clear auth state

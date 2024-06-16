@@ -1,4 +1,4 @@
-import AdminEquipmentDetails from "../components/Admin-EquipmentDetails";
+import AdminEquipmentDetails from "../components/AdminEquipmentDetails";
 
 export default function Equipment() {
     return(

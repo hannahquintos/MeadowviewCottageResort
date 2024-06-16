@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import EquipmentDeleteModal from "./modals/EquipmentDeleteModal";
-import Equipment from '../pages/Equipment';
 
 export default function singleEquipment() {
 
