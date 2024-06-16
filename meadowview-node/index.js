@@ -102,8 +102,8 @@ app.post("/api/login", async (request, response) => {
     sameSite: 'None', //cross-site cookie (to allow api and app to be hosted on different servers)
     maxAge: 360000 //cookie expiry
   });
-
-  response.json({ status: "Success", accessToken, role: user.role });
+  
+  response.json({ status: "Success", accessToken, role: user.role, userId: user._id });
 
 });
 
@@ -156,6 +156,40 @@ app.post("/api/signup", async (request, response) => {
     console.log("An error occurred");
   }
 
+});
+
+/*
+ * returns: json object of selected user
+ */
+app.get("/api/users/:id", async (request, response) => {
+  let userId = request.params.id;
+  let user = await getSingleUser(userId);
+  response.json(user);
+});
+
+// retrieve values from submitted edit user POST form
+app.post("/api/users/update/:id", async (request, response) => {
+  let id = request.params.id;
+  // console.log("Id: " + id);
+  let idFilter = {_id: new ObjectId(String(id))};
+  let firstName = request.body.firstName;
+  let lastName = request.body.lastName;
+  let email = request.body.email;
+  let phone = request.body.phone;
+  let user = {
+    "firstName": firstName,
+    "lastName": lastName,
+    "email": email,
+    "phone": phone,
+  };
+
+  try {
+    await editUser(idFilter, user);
+    response.json("User successfully updated");
+  } catch (e) {
+    console.log("An error occurred");
+    response.status.json(e);
+  }
 });
 
 /*
@@ -433,13 +467,6 @@ async function connection() {
   return db;
 }
 
-//Function to check if user is valid/exists in the system
-// async function checkUser(emailIn, passwordIn) {
-//   db = await connection();
-//   let result = db.collection("users").findOne({email:emailIn, password:passwordIn}); 
-//   return result;
-// }
-
 //Function to check if email is valid/exists in the system
 async function findUser(emailIn) {
   db = await connection();
@@ -451,6 +478,28 @@ async function findUser(emailIn) {
 async function addUser(userData) {
   db = await connection();
   let status = await db.collection("users").insertOne(userData);
+}
+
+//Function to retrieve a single document from users by _id
+async function getSingleUser(id){
+  db = await connection();
+  const userId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("users").findOne(userId); 
+  return result;
+}
+
+//Function to update a user document
+async function editUser(filter, user){
+  db = await connection();
+  const updateUser = {
+    $set: {
+      "firstName": user.firstName,
+      "lastName": user.lastName,
+      "email": user.email,
+      "phone": user.phone
+    },
+  };
+  const result = await db.collection("users").updateOne(filter, updateUser);
 }
 
 //Function to select all documents in the events collection

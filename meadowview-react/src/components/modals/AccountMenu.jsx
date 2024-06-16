@@ -10,10 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../context/AuthProvider';
 import React, { useContext } from 'react';
+import useAuth from '../../hooks/useAuth';
+import { Link } from "react-router-dom";
+
+
 
 export default function MenuListComposition() {
 
   const { setAuth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
   const navigate = useNavigate();
 
@@ -105,7 +110,7 @@ export default function MenuListComposition() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem><Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/profile/${auth.userId}`}>Profile</Link></MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

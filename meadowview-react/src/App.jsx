@@ -20,6 +20,11 @@ import CreateEquipment from "./pages/CreateEquipment";
 import EditEquipment from "./pages/EditEquipment";
 import AdminEquipment from "./pages/AdminEquipmentDetails";
 import RequireAuth from "./components/RequireAuth";
+import Profile from "./pages/Profile";
+import GuestHome from "./pages/GuestHome";
+import AdminHome from "./pages/AdminHome";
+import EditProfile from "./pages/EditProfile";
+
 
 import './App.css'
 
@@ -35,18 +40,27 @@ function App() {
            <Route path="/login" element={<Login />} />
            <Route path="/signup" element={<Signup />} />
 
+          {/* protected routes - guest and admin */}
+           <Route element={<RequireAuth allowedRoles={['guest', 'admin']} />}>
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/profile/:id/edit" element={<EditProfile />} />
+            </Route>
+
            {/* protected routes - guest */}
            <Route element={ <RequireAuth allowedRoles={["guest"]}/> }>
+              <Route path="/home" element={<GuestHome />} />
               <Route path="/activities" element={<Activities />} />
               <Route path="/activities/:id" element={<Activity />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/:id" element={<Event />} />
               <Route path="/equipment" element={<Equipment />} />
               <Route path="/equipment/:id" element={<EquipmentPiece />} />
+
             </Route>
               
             {/* protected routes - admin */}
             <Route element={ <RequireAuth allowedRoles={["admin"]}/> }>
+              <Route path="/admin" element={<AdminHome />} />
               <Route path="/admin/activities/:id" element={<AdminActivity />} />
               <Route path="/admin/activities/add" element={<CreateActivity />} />
               <Route path="/admin/activities/:id/edit" element={<EditActivity />} />
@@ -56,6 +70,7 @@ function App() {
               <Route path="/admin/equipment/:id" element={<AdminEquipment />} />
               <Route path="/admin/equipment/add" element={<CreateEquipment />} />
               <Route path="/admin/equipment/:id/edit" element={<EditEquipment />} />
+
             </Route>
 
          </Routes>

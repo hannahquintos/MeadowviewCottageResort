@@ -33,7 +33,7 @@ export default function Login() {
           const res = await axios.post("http://localhost:3000/api/login", formData);
 
           if (res.data.status === "Success") {
-            setAuth({ email: formData.email, token: res.data.token, role: res.data.role });
+            setAuth({ email: formData.email, token: res.data.token, role: res.data.role, userId: res.data.userId});
             navigate(from, { replace: true });
             // navigate("/activities");
           } else {
