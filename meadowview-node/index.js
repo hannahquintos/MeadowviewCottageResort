@@ -188,7 +188,7 @@ app.post("/api/users/update/:id", async (request, response) => {
     response.json("User successfully updated");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -206,6 +206,47 @@ app.get("/api/weather", async (request, response) => {
 app.get("/api/events", async (request, response) => {
   let events = await getAllEvents();
   response.json(events); //send JSON object with appropriate JSON headers
+});
+
+/*
+ * returns: an array of event favourites for a given userId
+ */
+app.get("/api/eventFavourites/:id", async (request, response) => {
+  let userId = request.params.id;
+  let eventFavourites = await getAllEventFavourites(userId);
+  response.json(eventFavourites); //send JSON object with appropriate JSON headers
+});
+
+// retrieve values from submitted add event favourite POST form
+app.post("/api/eventFavourites/create", async (request, response) => {
+  let eventId = request.body.eventId;
+  let userId = request.body.userId;
+
+  let newEventFavourite = {
+    eventId: eventId,
+    userId: userId
+  };
+
+  try {
+    await addEventFavourite(newEventFavourite);
+    response.json("Event favourite successfully added");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+// get event favourite to delete
+app.get("/api/eventFavourites/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteEventFavourite(id);
+    response.json("Event favourite successfully removed");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
 });
 
 /*
@@ -240,7 +281,7 @@ app.post("/api/events/create", async (request, response) => {
     response.json("Event successfully created");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -269,11 +310,11 @@ app.post("/api/events/update/:id", async (request, response) => {
     response.json("Event successfully updated");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
-// get activity to delete
+// get event to delete
 app.get("/api/events/delete/:id", async (request, response) => {
   let id = request.params.id;
   
@@ -282,7 +323,7 @@ app.get("/api/events/delete/:id", async (request, response) => {
     response.json("Event successfully deleted");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -326,7 +367,7 @@ app.post("/api/activities/create", async (request, response) => {
     response.json("Activity successfully created");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -355,7 +396,7 @@ app.post("/api/activities/update/:id", async (request, response) => {
     response.json("Activity successfully updated");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -368,7 +409,7 @@ app.get("/api/activities/delete/:id", async (request, response) => {
     response.json("Activity successfully deleted");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -410,7 +451,7 @@ app.post("/api/equipment/create", async (request, response) => {
     response.json("Equipment successfully created");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -437,7 +478,7 @@ app.post("/api/equipment/update/:id", async (request, response) => {
     response.json("Equipment successfully updated");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -450,7 +491,7 @@ app.get("/api/equipment/delete/:id", async (request, response) => {
     response.json("Equipment successfully deleted");
   } catch (e) {
     console.log("An error occurred");
-    response.status.json(e);
+    response.json(e);
   }
 });
 
@@ -508,6 +549,30 @@ async function getAllEvents() {
   let results = db.collection("events").find({});
   let res = await results.toArray();
   return res;
+}
+
+//Function to select all documents in the eventFavourites collection for a given userId
+async function getAllEventFavourites(userId) {
+  db = await connection();
+  const results = db.collection("eventFavourites").find({ userId: userId });  
+  let res = await results.toArray();
+  return res;
+}
+
+//Function to insert an eventFavourites document
+async function addEventFavourite(eventFavouriteData) {
+  db = await connection();
+  let status = await db.collection("eventFavourites").insertOne(eventFavouriteData);
+}
+
+//Function to delete an eventFavourite document
+async function deleteEventFavourite(id) {
+  db = await connection();
+  const eventFavouriteDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("eventFavourites").deleteOne(eventFavouriteDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
 }
 
 //Function to retrieve a single document from events by _id

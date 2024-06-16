@@ -67,14 +67,17 @@ export default function EventsList() {
     }
   };
 
+  //filter events to only display favourited ones
+  const favouritedEvents = events.filter(event => isEventFavourited(event._id));
+
   return (
     <div className="contentContainer">
       <div className="pageTitle">
         <h1>Events</h1>
-        <div className="btn"><Link to="/events/favourites">View Favourited Events</Link></div>
+        <div className="btn"><Link to="/events">View All Events</Link></div>
       </div>
       {
-        events.map((event) => (
+        favouritedEvents.map((event) => (
           <Link to={`/events/${event._id}`} key={event._id}>
             <div className="card">
               <img src={event.image} alt={event.eventName} />

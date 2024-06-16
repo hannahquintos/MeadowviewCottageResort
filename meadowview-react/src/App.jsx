@@ -10,6 +10,7 @@ import CreateActivity from "./pages/CreateActivity";
 import EditActivity from "./pages/EditActivity";
 import AdminActivity from "./pages/AdminActivityDetails";
 import Events from "./pages/Events";
+import EventFavourites from "./pages/EventFavourites";
 import Event from "./pages/EventDetails";
 import CreateEvent from "./pages/CreateEvent";
 import EditEvent from "./pages/EditEvent";
@@ -52,6 +53,7 @@ function App() {
               <Route path="/activities" element={<Activities />} />
               <Route path="/activities/:id" element={<Activity />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/events/favourites" element={<EventFavourites />} />
               <Route path="/events/:id" element={<Event />} />
               <Route path="/equipment" element={<Equipment />} />
               <Route path="/equipment/:id" element={<EquipmentPiece />} />
