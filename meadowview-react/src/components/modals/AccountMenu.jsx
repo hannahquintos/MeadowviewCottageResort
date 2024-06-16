@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
@@ -9,24 +8,31 @@ import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import AuthContext from '../../context/AuthProvider';
+import React, { useContext } from 'react';
 
 export default function MenuListComposition() {
+
+  const { setAuth } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
 
-  const handleLogout = () => {
-    axios.get("http://localhost:3000/auth/logout")
-    .then(res => {
-      if(res.data.status){
-        navigate('/');
-      }
-    }) 
-    .catch(e => {
-      console.log(e);
-    })
+  const handleLogout = async () => {
+    try {
+        const res = await axios.get("http://localhost:3000/api/logout");
+        console.log("res: " + res.data);
+
+        if (res.data === "Cookie cleared") {
+            setAuth({}); //clear auth state
+            navigate('/'); //redirect to home page
+        }
+    } catch (e) {
+        console.log(e);
     }
+};
+
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);

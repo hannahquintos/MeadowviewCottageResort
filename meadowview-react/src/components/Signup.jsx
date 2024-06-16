@@ -9,9 +9,9 @@ export default function Signup() {
     const [formData, setFormData] = useState({
 		email: '',
 		password: '',
-    firstName: '',
-    lastName: '',
-    phone: ''
+        firstName: '',
+        lastName: '',
+        phone: ''
 	  });
 
 	const handleChange = (e) => {

@@ -23,78 +23,107 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+
 //allow requests from all servers
 app.use(cors({
   origin: ["http://localhost:5173"],
   credentials: true
 }));
 
-
-//API endpoints
-
 /*
- * retrieve email and login values from the login form
+ * to verify jwt
  */
-app.post("/api/login", async (request, response) => {
-  const{email, password}=request.body;
-  // const hashPassword = await bcrypt.hash(password, 10);
-  // console.log("Hashed Password: " + hashPassword)
+
+  const verifyJWT = (request, response, next) => {
 
   try{
-    const user= await checkEmail(email);
-    if(user){
-      const validPassword = await bcrypt.compare(password, user.password);
-      if(validPassword){
-        // response.json("exist");
-
-        const token = jwt.sign({username: user.email}, process.env.KEY, {expiresIn: '1h'});
-        response.cookie('token', token, {httpOnly: true, maxAge: 360000});
-        return response.json({status: true, message: "exist"})
-
-      } else{
-        response.json("notexist");
-      }
-      // response.json("exist");
-    } else{
-      response.json("notexist");
+    const token = request.cookies.jwt;
+    // console.log("token: " + token);
+    if (!token) {
+      return response.status(401).json({ message: "Unauthorized" });
     }
-  }
-  catch(e){
-    response.json("notexist");
-    console.log("An error occurred");
-  }
-
-});
-
-/*
- * to verify user
- */
-const verifyUser = async (request, response, next) => {
-  try{
-    const token = request.cookies.token;
-    if(!token){
-      return response.json({status: false, message: "no token"})
-    }
-    const decoded = await jwt.verify(token, process.env.KEY);
-    next()
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    // console.log("decoded token: " + decoded);
+    // request.email = decoded.User.email;
+    // request.role = decoded.User.role;
+    next();
 
   } catch(e){
     return response.json(e);
   }
 
-};
+  };
 
-app.get("/auth/verify", verifyUser, (request, response) => {
-  return response.json({status: true, message: "authorized"});
-});
 
+//API endpoints
 
 /*
- * to logout user
+ * retrieve values from the login form
  */
-app.get("/auth/logout", (request, response) => {
-  response.clearCookie("token");
-  return response.json({status: true})
+app.post("/api/login", async (request, response) => {
+  const{email, password}=request.body;
+
+  //return error code if email or password are missing
+  if (!email || !password){
+    return response.status(400).json({ message: "All fields are required" });
+  }
+
+  //call function to check if user exists in the database
+  const user = await findUser(email);
+  //return error code if user's email isn't found in the database
+  if(!user){
+    return response.status(401).json({ message:"Unauthorized" });
+  }
+
+  //check if given password matches the user's password in the database
+  const validPassword = await bcrypt.compare(password, user.password);
+  //return error code if password is invalid
+  if(!validPassword){
+    return response.status(401).json({ message: "Unauthorized" });
+  }
+
+  //create access token
+  const accessToken = jwt.sign(
+    {
+      //save user's information in the access token
+      "User": {
+        "email": user.email,
+        "role": user.role
+      }
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "1h" }
+  );
+
+  //create cookie
+  response.cookie('jwt', accessToken, {
+    httpOnly: true, //accessible only by web server
+    secure: true, //https
+    sameSite: 'None', //cross-site cookie (to allow api and app to be hosted on different servers)
+    maxAge: 360000 //cookie expiry
+  });
+
+  response.json({ status: "Success", accessToken, role: user.role });
+
+});
+
+/*
+ * logout user
+ */
+
+app.get("/api/logout", async (request, response) => {
+  const cookies = request.cookies;
+
+  //send status code 204 (no content) if no cookies
+  if (!cookies?.jwt){
+    return response.sendStatus(204);
+  }
+  response.clearCookie("jwt", {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true
+  })
+  response.json("Cookie cleared");
 });
 
 /*
@@ -113,7 +142,7 @@ app.post("/api/signup", async (request, response) => {
   };
 
   try{
-    const validEmail = await checkEmail(email);
+    const validEmail = await findUser(email);
     if(validEmail){
       response.json("exist");
     } else{
@@ -226,7 +255,7 @@ app.get("/api/events/delete/:id", async (request, response) => {
 /*
  * returns: an array of activities
  */
-app.get("/api/activities", async (request, response) => {
+app.get("/api/activities", verifyJWT, async (request, response) => {
   let activities = await getAllActivities();
   response.json(activities); //send JSON object with appropriate JSON headers
 });
@@ -412,7 +441,7 @@ async function connection() {
 // }
 
 //Function to check if email is valid/exists in the system
-async function checkEmail(emailIn) {
+async function findUser(emailIn) {
   db = await connection();
   let result = db.collection("users").findOne({email:emailIn}); 
   return result;

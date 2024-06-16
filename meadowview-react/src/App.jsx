@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -19,38 +19,43 @@ import EquipmentPiece from "./pages/EquipmentDetails";
 import CreateEquipment from "./pages/CreateEquipment";
 import EditEquipment from "./pages/EditEquipment";
 import AdminEquipment from "./pages/Admin-EquipmentDetails";
+import RequireAuth from "./components/RequireAuth";
 
 import './App.css'
 
 function App() {
   return (
    <>
-     <BrowserRouter>
        <Header />
        <main id="main">
          <Routes>
+          {/* public routes */}
            <Route path="/" element={<Home />} />
            <Route path="/login" element={<Login />} />
            <Route path="/signup" element={<Signup />} />
-           <Route path="/activities" element={<Activities />} />
-           <Route path="/activities/:id" element={<Activity />} />
-           <Route path="/admin/activities/:id" element={<AdminActivity />} />
-           <Route path="/admin/activities/add" element={<CreateActivity />} />
-           <Route path="/admin/activities/:id/edit" element={<EditActivity />} />
-           <Route path="/events" element={<Events />} />
-           <Route path="/events/:id" element={<Event />} />
-           <Route path="/admin/events/add" element={<CreateEvent />} />
-           <Route path="/admin/events/:id/edit" element={<EditEvent />} />
-           <Route path="/admin/events/:id" element={<AdminEvent />} />
-           <Route path="/equipment" element={<Equipment />} />
-           <Route path="/equipment/:id" element={<EquipmentPiece />} />
-           <Route path="/admin/equipment/add" element={<CreateEquipment />} />
-           <Route path="/admin/equipment/:id/edit" element={<EditEquipment />} />
-           <Route path="/admin/equipment/:id" element={<AdminEquipment />} />
+
+           {/* protected routes */}
+           <Route element={ <RequireAuth /> }>
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/activities/:id" element={<Activity />} />
+              <Route path="/admin/activities/:id" element={<AdminActivity />} />
+              <Route path="/admin/activities/add" element={<CreateActivity />} />
+              <Route path="/admin/activities/:id/edit" element={<EditActivity />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<Event />} />
+              <Route path="/admin/events/add" element={<CreateEvent />} />
+              <Route path="/admin/events/:id/edit" element={<EditEvent />} />
+              <Route path="/admin/events/:id" element={<AdminEvent />} />
+              <Route path="/equipment" element={<Equipment />} />
+              <Route path="/equipment/:id" element={<EquipmentPiece />} />
+              <Route path="/admin/equipment/add" element={<CreateEquipment />} />
+              <Route path="/admin/equipment/:id/edit" element={<EditEquipment />} />
+              <Route path="/admin/equipment/:id" element={<AdminEquipment />} />
+           </Route>
+
          </Routes>
        </main>
        <Footer />
-     </BrowserRouter>
    </>
  )
 }

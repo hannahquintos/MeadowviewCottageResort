@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from "axios";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import AuthContext from '../context/AuthProvider';
 
 export default function Login() {
 
+    const { setAuth } = useContext(AuthContext);
+
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const [formData, setFormData] = useState({
 		email: '',
@@ -27,12 +32,12 @@ export default function Login() {
       try{
           const res = await axios.post("http://localhost:3000/api/login", formData);
 
-          if (res.data.status) {
-            // If the email exists in the system, redirect to the activities page
-            navigate("/activities");
-          } else if (res.data === "notexist") {
-            // If the email does not exist, show alert
-            alert("Incorrect email or password");
+          if (res.data.status === "Success") {
+            setAuth({ email: formData.email, token: res.data.token, role: res.data.role });
+            navigate(from, { replace: true });
+            // navigate("/activities");
+          } else {
+              alert("Incorrect email or password");
           }
       }
       catch(e){
