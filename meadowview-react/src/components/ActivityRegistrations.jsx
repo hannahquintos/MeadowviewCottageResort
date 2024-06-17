@@ -1,10 +1,15 @@
+import React from 'react';
 import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import Weather from "./Weather";
+import useAuth from '../hooks/useAuth';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 export default function ActivitiesList() {
+
+  const { auth } = useAuth();
   const [activities, setActivities] = useState([]);
+  const [activityRegistrations, setActivityRegistrations] = useState([]);
 
   useEffect(() => {
     const getAllActivities = async () => {
@@ -18,14 +23,30 @@ export default function ActivitiesList() {
     getAllActivities();
   }, []);
 
+  useEffect(() => {
+    const getAllActivityRegistrations = async () => {
+      let response = await fetch(`http://localhost:3000/api/activityRegistrations/${auth.userId}`);
+      let data = await response.json();
+      setActivityRegistrations(data);
+    }
+    getAllActivityRegistrations();
+  }, []);
+
+  const isActivityRegistered = (activityId) => {
+    return activityRegistrations.some(registration => registration.activityId === activityId);
+  };
+
+  //filter activities to only display registered activities
+  const registeredActivities = activities.filter(activity => isActivityRegistered(activity._id));
+
   return (
     <div className="contentContainer">
       <div className="pageTitle">
-        <h1>Activities</h1>
-        <div className="btn"><Link to="/activities/registrations">View Registered Activities</Link></div>
+        <h1>My Registered Activities</h1>
+        <div className="btn"><Link to="/activities">View All Activities</Link></div>
       </div>
         {
-          activities.map((activity) => (
+          registeredActivities.map((activity) => (
             <Link to={`/activities/${activity._id}`} key={activity._id}>
                 <div className="card">
                     <img src={activity.image} alt={activity.activityName} />

@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Activities from "./pages/Activities";
 import Activity from "./pages/ActivityDetails";
+import ActivityRegistration from "./pages/ActivityRegistration";
+import ActivityRegistrations from "./pages/ActivityRegistrations";
 import CreateActivity from "./pages/CreateActivity";
 import EditActivity from "./pages/EditActivity";
 import AdminActivity from "./pages/AdminActivityDetails";
@@ -25,7 +27,6 @@ import Profile from "./pages/Profile";
 import GuestHome from "./pages/GuestHome";
 import AdminHome from "./pages/AdminHome";
 import EditProfile from "./pages/EditProfile";
-
 
 import './App.css'
 
@@ -52,6 +53,8 @@ function App() {
               <Route path="/home" element={<GuestHome />} />
               <Route path="/activities" element={<Activities />} />
               <Route path="/activities/:id" element={<Activity />} />
+              <Route path="/activities/:id/register" element={<ActivityRegistration />} />
+              <Route path="/activities/registrations" element={<ActivityRegistrations />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/favourites" element={<EventFavourites />} />
               <Route path="/events/:id" element={<Event />} />

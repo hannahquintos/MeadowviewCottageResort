@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import ActivityDeleteModal from "./modals/ActivityDeleteModal";
 
@@ -65,7 +66,7 @@ export default function singleActivity() {
               <p className="detailsDate">{activity.startTime}</p>
               <h1>{activity.activityName}</h1>
               <div className="location">
-                  <img src="../src/assets/location-icon.svg" alt="" />
+                  <LocationOnIcon/>
                   <p>{activity.location}</p>
               </div>
               <p>{activity.description}</p>

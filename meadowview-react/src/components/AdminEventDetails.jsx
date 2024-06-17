@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import EventDeleteModal from "./modals/EventDeleteModal";
 
@@ -65,7 +66,7 @@ export default function singleEvent() {
               <p className="detailsDate">{event.startTime}</p>
               <h1>{event.eventName}</h1>
               <div className="location">
-                  <img src="../src/assets/location-icon.svg" alt="" />
+                  <LocationOnIcon/>
                   <p>{event.location}</p>
               </div>
               <p>{event.description}</p>

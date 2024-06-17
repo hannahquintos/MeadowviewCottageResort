@@ -344,6 +344,58 @@ app.get("/api/activities/:id", async (request, response) => {
   response.json(activity);
 });
 
+/*
+ * returns: an array of activity registrations for a given userId
+ */
+app.get("/api/activityRegistrations/:id", async (request, response) => {
+  let userId = request.params.id;
+  let activityRegistrations = await getAllActivityRegistrations(userId);
+  response.json(activityRegistrations); //send JSON object with appropriate JSON headers
+});
+
+// retrieve values from submitted create activity registration POST form
+app.post("/api/activityRegistrations/create", async (request, response) => {
+  let activityId = request.body.activityId;
+  let userId = request.body.userId;
+  let participants = request.body.participants;
+
+  let newActivityRegistration = {
+    activityId: activityId,
+    userId: userId,
+    participants: participants
+  };
+
+  try {
+    await addActivityRegistration(newActivityRegistration);
+    response.json("Activity registration successfully created");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+// get activity registration to delete
+app.get("/api/activityRegistrations/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteActivityRegistration(id);
+    response.json("Activity registration successfully deleted");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+/*
+ * returns: json object of selected activity registration
+ */
+app.get("/api/activityRegistrations/details/:id", async (request, response) => {
+  let activityRegistrationId = request.params.id;
+  let activityRegistration = await getSingleActivityRegistration(activityRegistrationId);
+  response.json(activityRegistration);
+});
+
 // retrieve values from submitted create activity POST form
 app.post("/api/activities/create", async (request, response) => {
   let activityName = request.body.activityName;
@@ -628,6 +680,38 @@ async function getSingleActivity(id){
   db = await connection();
   const activityId = { _id: new ObjectId(String(id)) };
   const result = await db.collection("activities").findOne(activityId); 
+  return result;
+}
+
+//Function to select all documents in the activityRegistrations collection for a given userId
+async function getAllActivityRegistrations(userId) {
+  db = await connection();
+  const results = db.collection("activityRegistrations").find({ userId: userId });  
+  let res = await results.toArray();
+  return res;
+}
+
+//Function to insert an activity registration document
+async function addActivityRegistration(activityRegistrationData) {
+  db = await connection();
+  let status = await db.collection("activityRegistrations").insertOne(activityRegistrationData);
+}
+
+//Function to delete an activityRegistration document
+async function deleteActivityRegistration(id) {
+  db = await connection();
+  const activityRegistrationDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("activityRegistrations").deleteOne(activityRegistrationDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
+}
+
+//Function to retrieve a single document from activityRegistrations by _id
+async function getSingleActivityRegistration(id){
+  db = await connection();
+  const activityRegistrationId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("activityRegistrations").findOne(activityRegistrationId); 
   return result;
 }
 

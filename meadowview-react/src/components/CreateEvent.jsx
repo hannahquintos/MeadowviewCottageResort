@@ -24,21 +24,21 @@ export default function CreateEvent() {
 	};
 
 	const handleSubmit = async (e) => {
-	e.preventDefault();
+		e.preventDefault();
 
-	try {
-		const res = await axios.post("http://localhost:3000/api/events/create", formData);
+		try {
+			const res = await axios.post("http://localhost:3000/api/events/create", formData);
 
-		if (res.status === 200) {
-		alert("Event successfully created");
-		navigate("/events");
-		} else {
-		alert("Something went wrong");
+			if (res.status === 200) {
+				alert("Event successfully created");
+				navigate("/events");
+			} else {
+				alert("Something went wrong");
+			}
+		} catch (e) {
+			alert("Error");
+			console.log(e);
 		}
-	} catch (e) {
-		alert("Error");
-		console.log(e);
-	}
 	};
 
 	return (
