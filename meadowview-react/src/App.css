@@ -357,3 +357,24 @@ textarea{
   border: solid 1.5px #CC5454;
   color: #CC5454;
 }
+
+.adminList{
+  padding-top: 50px;
+}
+
+.adminListTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.btn.add{
+  height: fit-content;
+}
+
+.addContainer{
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+}
