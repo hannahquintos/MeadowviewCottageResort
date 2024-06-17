@@ -54,22 +54,6 @@ export default function CreateUser() {
 			<form onSubmit={handleSubmit}>
             <div>
                 <div>
-                    <label htmlFor="email">Email</label>
-                </div>
-                <div>
-                    <input type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
-                </div>
-            </div>
-            <div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                </div>
-                <div>
-                    <input type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
-                </div>
-            </div>
-            <div>
-                <div>
                     <label htmlFor="firstName">First Name</label>
                 </div>
                 <div>
@@ -82,6 +66,14 @@ export default function CreateUser() {
                 </div>
                 <div>
                     <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange}/> 
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label htmlFor="email">Email</label>
+                </div>
+                <div>
+                    <input type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -104,6 +96,14 @@ export default function CreateUser() {
                     </select>
                 </div>
 			</div>
+            <div>
+                <div>
+                    <label htmlFor="password">Password</label>
+                </div>
+                <div>
+                    <input type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
+                </div>
+            </div>
             <div>
 				<button className="btn form" type="submit">Submit</button>
 			</div>
