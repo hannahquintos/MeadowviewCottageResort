@@ -378,3 +378,7 @@ textarea{
   align-items: center;
   gap: 0.25em;
 }
+
+.formContainer{
+  padding-top: 20px;
+}

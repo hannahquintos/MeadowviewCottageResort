@@ -15,6 +15,20 @@ export default function EventsList() {
     getAllEvents();
   }, []);
 
+  const formatDate = (startTime, endTime) => {
+    const date = { month: 'short', day: 'numeric' };
+    const time = { hour: 'numeric', minute: 'numeric', hour12: true };
+
+    const start= new Date(startTime);
+    const end = new Date(endTime);
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', date).format(start);
+    const formattedStartTime = new Intl.DateTimeFormat('en-US', time).format(start);
+    const formattedEndTime = new Intl.DateTimeFormat('en-US', time).format(end);
+
+    return `${formattedDate} | ${formattedStartTime} - ${formattedEndTime}`;
+  };
+
   return (
     <div className="adminList">
       <div className="adminListTitle">
@@ -35,7 +49,7 @@ export default function EventsList() {
                 <div className="card">
                     <img src={event.image} alt={event.eventName} />
                     <div className="cardText">
-                        <p>{event.startTime}</p>
+                        <p>{formatDate(event.startTime, event.endTime)}</p>
                         <h2>{event.eventName}</h2>
                         <div className="location">
                             <LocationOnIcon/>

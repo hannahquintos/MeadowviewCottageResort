@@ -85,6 +85,20 @@ export default function SingleActivity() {
     }
   };
 
+  const formatDate = (startTime, endTime) => {
+    const date = { month: 'short', day: 'numeric' };
+    const time = { hour: 'numeric', minute: 'numeric', hour12: true };
+
+    const start= new Date(startTime);
+    const end = new Date(endTime);
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', date).format(start);
+    const formattedStartTime = new Intl.DateTimeFormat('en-US', time).format(start);
+    const formattedEndTime = new Intl.DateTimeFormat('en-US', time).format(end);
+
+    return `${formattedDate} | ${formattedStartTime} - ${formattedEndTime}`;
+  };
+
   return (
     <div className="border">
         <div className="detailsContent">
@@ -92,7 +106,9 @@ export default function SingleActivity() {
                 <img className="detailsImg" src={activity.image} alt={activity.activityName} />
             </div>
             <div className="detailsInfo">
-                <p className="detailsDate">{activity.startTime}</p>
+                {activity.startTime && activity.endTime && (
+                  <p className="detailsDate">{formatDate(activity.startTime, activity.endTime)}</p>
+                )}
                 <h1>{activity.activityName}</h1>
                 <div className="location">
                   <LocationOnIcon/>

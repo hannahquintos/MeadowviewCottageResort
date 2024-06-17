@@ -55,6 +55,20 @@ export default function singleEvent() {
     getSingleEvent(params.id);
   }, []);
 
+  const formatDate = (startTime, endTime) => {
+    const date = { month: 'short', day: 'numeric' };
+    const time = { hour: 'numeric', minute: 'numeric', hour12: true };
+
+    const start= new Date(startTime);
+    const end = new Date(endTime);
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', date).format(start);
+    const formattedStartTime = new Intl.DateTimeFormat('en-US', time).format(start);
+    const formattedEndTime = new Intl.DateTimeFormat('en-US', time).format(end);
+
+    return `${formattedDate} | ${formattedStartTime} - ${formattedEndTime}`;
+  };
+
   return (
     <div className="border">
       <EventDeleteModal open={open} handleClose={handleClose} deleteEvent={deleteEvent}/>
@@ -63,7 +77,9 @@ export default function singleEvent() {
               <img className="detailsImg" src={event.image} alt={event.eventName} />
           </div>
           <div className="detailsInfo">
-              <p className="detailsDate">{event.startTime}</p>
+                {event.startTime && event.endTime && (
+                  <p className="detailsDate">{formatDate(event.startTime, event.endTime)}</p>
+                )}
               <h1>{event.eventName}</h1>
               <div className="location">
                   <LocationOnIcon/>

@@ -18,6 +18,20 @@ export default function ActivitiesList() {
     getAllActivities();
   }, []);
 
+  const formatDate = (startTime, endTime) => {
+    const date = { month: 'short', day: 'numeric' };
+    const time = { hour: 'numeric', minute: 'numeric', hour12: true };
+
+    const start= new Date(startTime);
+    const end = new Date(endTime);
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', date).format(start);
+    const formattedStartTime = new Intl.DateTimeFormat('en-US', time).format(start);
+    const formattedEndTime = new Intl.DateTimeFormat('en-US', time).format(end);
+
+    return `${formattedDate} | ${formattedStartTime} - ${formattedEndTime}`;
+  };
+
   return (
     <div className="contentContainer">
       <div className="pageTitle">
@@ -30,7 +44,7 @@ export default function ActivitiesList() {
                 <div className="card">
                     <img src={activity.image} alt={activity.activityName} />
                     <div className="cardText">
-                        <p>{activity.startTime}</p>
+                        <p>{formatDate(activity.startTime, activity.endTime)}</p>
                         <h2>{activity.activityName}</h2>
                         <div className="location">
                             <LocationOnIcon/>
