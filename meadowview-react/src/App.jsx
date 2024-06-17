@@ -31,6 +31,10 @@ import Profile from "./pages/Profile";
 import GuestHome from "./pages/GuestHome";
 import AdminHome from "./pages/AdminHome";
 import EditProfile from "./pages/EditProfile";
+import Users from "./pages/Users";
+import CreateUser from "./pages/CreateUser";
+import User from "./pages/UserDetails";
+import EditUser from "./pages/EditUser";
 
 import './App.css'
 
@@ -47,13 +51,13 @@ function App() {
            <Route path="/signup" element={<Signup />} />
 
           {/* protected routes - guest and admin */}
-           <Route element={<RequireAuth allowedRoles={['guest', 'admin']} />}>
+           <Route element={<RequireAuth allowedRoles={['Guest', 'Admin']} />}>
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/profile/:id/edit" element={<EditProfile />} />
             </Route>
 
            {/* protected routes - guest */}
-           <Route element={ <RequireAuth allowedRoles={["guest"]}/> }>
+           <Route element={ <RequireAuth allowedRoles={["Guest"]}/> }>
               <Route path="/home" element={<GuestHome />} />
               <Route path="/activities" element={<Activities />} />
               <Route path="/activities/:id" element={<Activity />} />
@@ -69,8 +73,12 @@ function App() {
             </Route>
               
             {/* protected routes - admin */}
-            <Route element={ <RequireAuth allowedRoles={["admin"]}/> }>
+            <Route element={ <RequireAuth allowedRoles={["Admin"]}/> }>
               <Route path="/admin" element={<AdminHome />} />
+              <Route path="/admin/users" element={<Users />} />
+              <Route path="/admin/users/:id" element={<User />} />
+              <Route path="/admin/users/:id/edit" element={<EditUser />} />
+              <Route path="/admin/users/add" element={<CreateUser />} />
               <Route path="/admin/activities" element={<AdminActivities />} />
               <Route path="/admin/activities/:id" element={<AdminActivity />} />
               <Route path="/admin/activities/add" element={<CreateActivity />} />

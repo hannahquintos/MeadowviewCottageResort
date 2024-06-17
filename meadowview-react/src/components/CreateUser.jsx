@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function Signup() {
+export default function CreateUser() {
 
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ export default function Signup() {
         firstName: '',
         lastName: '',
         phone: '',
-        role: 'Guest'
+        role: ''
 	  });
 
 	const handleChange = (e) => {
@@ -34,7 +34,7 @@ export default function Signup() {
               alert("An account with this email already exists");
             } else if (res.data === "notexist") {
               //if email is does not exist, redirect to home page
-              navigate("/login");
+              navigate("/admin/users");
             }
         }
         catch(e){
@@ -45,9 +45,13 @@ export default function Signup() {
 
 
     return(
-      <div>
-        <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit}>
+    <div className="border">
+		<div className="content">
+			<div>
+				<h1 className="adminHeading">Create User Account</h1>
+			</div>
+			<div className="divider"></div>
+			<form onSubmit={handleSubmit}>
             <div>
                 <div>
                     <label htmlFor="email">Email</label>
@@ -89,12 +93,22 @@ export default function Signup() {
                 </div>
             </div>
             <div>
-				<button className="btn form" type="submit">Sign Up</button>
+                <div>
+                    <label htmlFor="role">Role</label>
+                </div>
+                <div>
+                    <select name="role" value={formData.role} onChange={handleChange}>
+                        <option value="">Select a role</option>
+                        <option value="Guest">Guest</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+			</div>
+            <div>
+				<button className="btn form" type="submit">Submit</button>
 			</div>
         </form>
-
-        <p>Already a user? <Link to="/login">Login</Link></p>
-
-      </div>
+		</div>
+	</div>
     );
   }

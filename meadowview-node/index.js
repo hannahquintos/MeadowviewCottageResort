@@ -130,7 +130,7 @@ app.get("/api/logout", async (request, response) => {
  * retrieve email and login values from the login form
  */
 app.post("/api/signup", async (request, response) => {
-  const{email, password, firstName, lastName, phone}=request.body;
+  const{email, password, firstName, lastName, phone, role}=request.body;
   const hashPassword = await bcrypt.hash(password, 10);
 
   const newUser = {
@@ -138,7 +138,8 @@ app.post("/api/signup", async (request, response) => {
     password: hashPassword,
     firstName: firstName,
     lastName: lastName,
-    phone: phone
+    phone: phone,
+    role: role
   };
 
   try{
@@ -156,6 +157,14 @@ app.post("/api/signup", async (request, response) => {
     console.log("An error occurred");
   }
 
+});
+
+/*
+ * returns: an array of users
+ */
+app.get("/api/users", async (request, response) => {
+  let users = await getAllUsers();
+  response.json(users); //send JSON object with appropriate JSON headers
 });
 
 /*
@@ -186,6 +195,19 @@ app.post("/api/users/update/:id", async (request, response) => {
   try {
     await editUser(idFilter, user);
     response.json("User successfully updated");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+// get user to delete
+app.get("/api/users/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteUser(id);
+    response.json("User successfully deleted");
   } catch (e) {
     console.log("An error occurred");
     response.json(e);
@@ -600,6 +622,23 @@ app.get("/api/equipment/delete/:id", async (request, response) => {
   }
 });
 
+/*
+ * returns: an array of users
+ */
+app.get("/api/users", async (request, response) => {
+  let equipment = await getAllUsers();
+  response.json(equipment); //send JSON object with appropriate JSON headers
+});
+
+/*
+ * returns: json object of selected equipment
+ */
+app.get("/api/equipment/:id", async (request, response) => {
+  let equipmentId = request.params.id;
+  let equipment = await getSingleEquipment(equipmentId);
+  response.json(equipment);
+});
+
 
 //set up server listening
 app.listen(port, () => {
@@ -646,6 +685,24 @@ async function editUser(filter, user){
     },
   };
   const result = await db.collection("users").updateOne(filter, updateUser);
+}
+
+//Function to select all documents in the users collection
+async function getAllUsers() {
+  db = await connection();
+  let results = db.collection("users").find({});
+  let res = await results.toArray();
+  return res;
+}
+
+//Function to delete a user document
+async function deleteUser(id) {
+  db = await connection();
+  const userDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("users").deleteOne(userDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
 }
 
 //Function to select all documents in the events collection

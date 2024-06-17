@@ -18,8 +18,8 @@ export default function Header() {
                   <h2><a href="/">Meadowview Cottage Resort</a></h2>
               </div>
               {/* change nav links based on user */}
-              {auth?.role === 'guest' && <GuestNav />}
-              {auth?.role === 'admin' && <AdminNav />}
+              {auth?.role === 'Guest' && <GuestNav />}
+              {auth?.role === 'Admin' && <AdminNav />}
               {!auth?.role && <NavLoggedOut />}
           </div>
       </div>

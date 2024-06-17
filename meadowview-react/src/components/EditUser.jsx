@@ -29,7 +29,7 @@ export default function EditUser() {
 		lastName: '',
 		email: '',
 		phone: '',
-		role: user.role
+        role: ''
 	  });
 
 	const handleChange = (e) => {
@@ -47,8 +47,8 @@ export default function EditUser() {
 		const res = await axios.post(`http://localhost:3000/api/users/update/${params.id}`, formData);
 
 		if (res.status === 200) {
-		alert("Profile successfully updated");
-		navigate(`/profile/${user._id}`);
+		alert("User account successfully updated");
+		navigate(`/admin/users/${user._id}`);
 		} else {
 		alert("Something went wrong");
 		}
@@ -62,7 +62,7 @@ export default function EditUser() {
 	<div className="border">
 		<div className="content">
 			<div>
-				<h1>Edit Profile</h1>
+				<h1 className="adminHeading">Edit Profile</h1>
 			</div>
             <div className="divider"></div>
 			<form onSubmit={handleSubmit}>
@@ -98,6 +98,18 @@ export default function EditUser() {
 						<input id="phone" type="text" name="phone" value={formData.phone} onChange={handleChange}/>
 					</div>
 				</div>
+                <div>
+                    <div>
+                        <label htmlFor="role">Role</label>
+                    </div>
+                    <div>
+                        <select name="role" value={formData.role} onChange={handleChange}>
+                            <option value="">Select a role</option>
+                            <option value="Guest">Guest</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
 				<div className="actionBtns">
                     <div className="btn cancel"><Link to={`/profile/${user._id}`}>Cancel</Link></div>
                     <button className="btn form" type="submit">Save</button>
