@@ -351,3 +351,9 @@ textarea{
 .participant{
   padding: 0.5px 0;
 }
+
+.btn.deleteBooking{
+  background-color: white;
+  border: solid 1.5px #CC5454;
+  color: #CC5454;
+}

@@ -19,6 +19,7 @@ import EditEvent from "./pages/EditEvent";
 import AdminEvent from "./pages/AdminEventDetails";
 import Equipment from "./pages/Equipment";
 import EquipmentPiece from "./pages/EquipmentDetails";
+import EquipmentBookings from "./pages/EquipmentBookings";
 import CreateEquipment from "./pages/CreateEquipment";
 import EditEquipment from "./pages/EditEquipment";
 import AdminEquipment from "./pages/AdminEquipmentDetails";
@@ -59,6 +60,7 @@ function App() {
               <Route path="/events/favourites" element={<EventFavourites />} />
               <Route path="/events/:id" element={<Event />} />
               <Route path="/equipment" element={<Equipment />} />
+              <Route path="/equipment/bookings" element={<EquipmentBookings />} />
               <Route path="/equipment/:id" element={<EquipmentPiece />} />
 
             </Route>

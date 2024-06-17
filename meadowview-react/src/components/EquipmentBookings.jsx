@@ -1,10 +1,12 @@
+import React from 'react';
 import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import Weather from "./Weather";
 import useAuth from '../hooks/useAuth';
-import CheckIcon from '@mui/icons-material/Check';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-export default function EquipmentList() {
+export default function EquipmentBookingsList() {
+
   const { auth } = useAuth();
   const [equipment, setEquipment] = useState([]);
   const [equipmentBookings, setEquipmentBookings] = useState([]);
@@ -31,14 +33,17 @@ export default function EquipmentList() {
     return equipmentBookings.some(booking => booking.equipmentId === equipmentId);
   };
 
+  //filter equipment to only display equipment booked
+  const bookedEquipment = equipment.filter(equipment => isEquipmentBooked(equipment._id));
+
   return (
     <div className="contentContainer">
       <div className="pageTitle">
-        <h1>Equipment</h1>
-        <div className="btn"><Link to="/equipment/bookings">View Equipment Bookings</Link></div>
+        <h1>My Equipment Bookings</h1>
+        <div className="btn"><Link to="/equipment">View All Equipment</Link></div>
       </div>
       {
-          equipment.map((equipmentPiece) => {
+          bookedEquipment.map((equipmentPiece) => {
 
             //set text colour of availablity status
             let color;
@@ -53,14 +58,7 @@ export default function EquipmentList() {
                 <div className="card">
                   <img src={equipmentPiece.image} alt={equipmentPiece.equipmentName} />
                   <div className="cardText">
-                    {isEquipmentBooked(equipmentPiece._id) ? (
-                      <div className="registered">
-                        <p>Booked</p>
-                        <CheckIcon />
-                      </div>
-                  ) : (
-                      <p className={color}>{equipmentPiece.availability}</p>
-                  )}
+                    <p className={color}>{equipmentPiece.availability}</p>
                     <h2>{equipmentPiece.equipmentName}</h2>
                     <p>{equipmentPiece.condition} Condition</p>
                   </div>

@@ -113,7 +113,6 @@ export default function SingleActivity() {
             <div className="registrationContent">
                 <div className="divider"></div>
                 <h2 className="bookingHeading">Registration Details</h2>
-                {/* <p>{activityRegistration.activityId}</p> */}
                 {activityRegistration.participants && (
                   <div>
                     {activityRegistration.participants.map((participant, index) => (

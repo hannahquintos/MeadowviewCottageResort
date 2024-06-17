@@ -482,6 +482,59 @@ app.get("/api/equipment/:id", async (request, response) => {
   response.json(equipment);
 });
 
+/*
+ * returns: an array of equipment bookings for a given userId
+ */
+app.get("/api/equipmentBookings/:id", async (request, response) => {
+  let userId = request.params.id;
+  let equipmentBookings = await getAllEquipmentBookings(userId);
+  response.json(equipmentBookings); //send JSON object with appropriate JSON headers
+});
+
+// retrieve values from submitted create equipment booking POST form
+app.post("/api/equipmentBookings/create", async (request, response) => {
+
+  let equipmentId = request.body.equipmentId;
+  let userId = request.body.userId;
+
+  let idFilter = {_id: new ObjectId(String(equipmentId))};
+
+  let newEquipmentBooking = {
+    equipmentId: equipmentId,
+    userId: userId
+  };
+
+  try {
+    await addEquipmentBooking(idFilter, newEquipmentBooking);
+    response.json("Equipment booking successfully created");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+// get equipment booking to delete
+app.get("/api/equipmentBookings/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteEquipmentBooking(id);
+    response.json("Equipment booking successfully deleted");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+/*
+ * returns: json object of selected equipment booking
+ */
+app.get("/api/equipmentBookings/details/:id", async (request, response) => {
+  let equipmentBookingId = request.params.id;
+  let equipmentBooking = await getSingleEquipmentBooking(equipmentBookingId);
+  response.json(equipmentBooking);
+});
+
 // retrieve values from submitted create equipment POST form
 app.post("/api/equipment/create", async (request, response) => {
   let equipmentName = request.body.equipmentName;
@@ -760,6 +813,59 @@ async function getSingleEquipment(id){
   db = await connection();
   const equipmentId = { _id: new ObjectId(String(id)) };
   const result = await db.collection("equipment").findOne(equipmentId); 
+  return result;
+}
+
+//Function to select all documents in the equipmentBookings collection for a given userId
+async function getAllEquipmentBookings(userId) {
+  db = await connection();
+  const results = db.collection("equipmentBookings").find({ userId: userId });  
+  let res = await results.toArray();
+  return res;
+}
+
+//Function to insert an equipmentBooking document
+async function addEquipmentBooking(filter, equipmentBookingData) {
+  db = await connection();
+  let bookingResult = await db.collection("equipmentBookings").insertOne(equipmentBookingData);
+
+  //change the equipment of the booking to be unavailable
+  if (bookingResult.acknowledged) {
+    const updateEquipment = {
+      $set: {
+        "availability": "Unavailable"
+      },
+    };
+    const result = await db.collection("equipment").updateOne(filter, updateEquipment);
+  }
+}
+
+
+//Function to delete an equipmentBooking document
+async function deleteEquipmentBooking(id) {
+  db = await connection();
+  const equipmentBookingDeleteId = { _id: new ObjectId(String(id)) };
+  const booking = await db.collection("equipmentBookings").findOne(equipmentBookingDeleteId);
+  const equipmentId =  { _id: new ObjectId(String(booking.equipmentId)) };
+  const result = await db.collection("equipmentBookings").deleteOne(equipmentBookingDeleteId);
+
+  if (result.deletedCount == 1){
+    //change the equipment of the booking to be available
+    const updateEquipment = {
+      $set: {
+        "availability": "Available"
+      },
+    };
+    const result = await db.collection("equipment").updateOne(equipmentId, updateEquipment);
+    console.log("delete successful");
+  }
+}
+
+//Function to retrieve a single document from equipmentBookings by _id
+async function getSingleEquipmentBooking(id){
+  db = await connection();
+  const equipmentBookingId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("equipmentBookings").findOne(equipmentBookingId); 
   return result;
 }
 

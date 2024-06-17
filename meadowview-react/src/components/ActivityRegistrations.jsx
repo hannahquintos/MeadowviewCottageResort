@@ -5,7 +5,7 @@ import Weather from "./Weather";
 import useAuth from '../hooks/useAuth';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-export default function ActivitiesList() {
+export default function ActivityRegistrationsList() {
 
   const { auth } = useAuth();
   const [activities, setActivities] = useState([]);
