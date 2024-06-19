@@ -101,9 +101,9 @@ export default function EventsList() {
                 </div>
                 <div className="heart" onClick={(e) => toggleFavourite(event._id, e)}>             
                   {isEventFavourited(event._id) ? (
-                    <FavoriteIcon/>
+                    <FavoriteIcon className="heartIcon"/>
                   ) : (
-                    <FavoriteBorderOutlinedIcon/>
+                    <FavoriteBorderOutlinedIcon className="heartIcon"/>
                   )}
                 </div>
               </div>

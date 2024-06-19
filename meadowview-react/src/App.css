@@ -386,3 +386,31 @@ textarea{
 .errorMessage{
   color: #CC5454;
 }
+
+.iconColor{
+  color: #2A3662;
+}
+
+.participantAction{
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  margin-bottom: 1em;
+}
+
+.participantAction p{
+  margin: 0;
+}
+
+.participantAction.remove{
+  padding-bottom: 0.5em;
+}
+
+.profileIcon{
+  color: white;
+  font-size: 2.5em !important;
+}
+
+.heartIcon{
+  font-size: 2em !important;
+}

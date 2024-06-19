@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { useParams } from 'react-router-dom';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 export default function CreateRegistration() {
 
@@ -106,13 +108,17 @@ export default function CreateRegistration() {
                                     <input id="lastName" type="text" name="lastName" value={form.lastName} onChange={event => handleChange(event, index)}/>
                                 </div>
                             </div>
-                            <button onClick={() => removeFields(index)}>Remove Participant</button>
+                            <div className="participantAction remove">
+                                <p>Remove Participant</p>
+                                <RemoveCircleIcon className="iconColor" onClick={() => removeFields(index)}/>
+                            </div>
                         </div>
                     )
                 })}
             </form>
-            <div>
-                <button onClick={addFields}>Add Participant</button>
+            <div className="participantAction">
+                <p>Add Participant</p>
+                <AddCircleIcon className="iconColor" onClick={addFields}/>
             </div>
             <div>
                 <button className="btn form" onClick={handleSubmit}>Register</button>

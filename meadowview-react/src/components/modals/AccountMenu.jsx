@@ -12,7 +12,7 @@ import AuthContext from '../../context/AuthProvider';
 import React, { useContext } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link } from "react-router-dom";
-
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 
 export default function MenuListComposition() {
@@ -75,7 +75,7 @@ export default function MenuListComposition() {
 
   return (
     <Stack direction="row" spacing={2}>
-      <div>
+      <div >
         <Button
           ref={anchorRef}
           id="composition-button"
@@ -84,7 +84,7 @@ export default function MenuListComposition() {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <img src="../src/assets/user-icon.svg" alt="User profile" />
+          <AccountCircleOutlinedIcon className="profileIcon"/>
         </Button>
         <Popper
           open={open}
