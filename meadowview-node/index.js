@@ -100,7 +100,7 @@ app.post("/api/login", async (request, response) => {
     httpOnly: true, //accessible only by web server
     secure: true, //https
     sameSite: 'None', //cross-site cookie (to allow api and app to be hosted on different servers)
-    maxAge: 360000 //cookie expiry
+    maxAge: 3600000 //cookie expiry (1hr)
   });
   
   response.json({ status: "Success", accessToken, role: user.role, userId: user._id });
