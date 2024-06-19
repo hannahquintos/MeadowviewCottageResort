@@ -4,7 +4,7 @@ export default function Home() {
   return(
     <>
         <div>
-            <img src="/muskoka-chairs.png" alt="Green and yellow muskoka chairs on a dock by the lake." />
+            <img src="/muskoka-chairs.png" alt="Green and yellow muskoka chairs on a dock by the lake" />
         </div>
         <div className="contentWrapper">
             <div id="aboutContent">
@@ -14,9 +14,9 @@ export default function Home() {
                 </div>
             </div>
             <div id="gallery">
-                <img src="/red-canoe.png" alt="" />
-                <img src="fishing.png" alt="" />
-                <img src="/trampoline.png" alt="" />
+                <img src="/red-canoe.png" alt="A red canoe sitting on the sand by the lake" />
+                <img src="/fishing.png" alt="A father and son fishing on a dock" />
+                <img src="/trampoline.png" alt="Kids jumping on a water trampoline" />
             </div>
         </div>
     </>
