@@ -59,7 +59,7 @@ app.use(cors({
 //API endpoints
 
 app.get("/", (request, response) => {
-  express.response.json("Meadowview Cottage Resort API");
+  response.json("Meadowview Cottage Resort API");
 })
 
 /*
