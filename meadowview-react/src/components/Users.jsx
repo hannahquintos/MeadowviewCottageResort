@@ -29,7 +29,9 @@ export default function UsersList() {
       </div>
       <div className="contentContainer">
         {
-          users.map((user) => (
+          users
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((user) => (
             <Link to={`/admin/users/${user._id}`} key={user._id}>
                 <div className="card">
                     <div className="cardText">
