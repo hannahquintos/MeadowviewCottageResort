@@ -23,7 +23,7 @@ export default function singleEquipment() {
 
   const deleteEquipment = async () => {
     try {
-      const res = await axios.get(`https://meadowview-cottage-resort.vercel.app/api/equipment/delete/${params.id}`);
+      const res = await axios.get(`https://meadowview-cottage-resort-api.vercel.app/api/equipment/delete/${params.id}`);
       handleClose();
 
       if (res.status === 200) {
@@ -45,7 +45,7 @@ export default function singleEquipment() {
 
   useEffect(() => {
     const getSingleEquipment = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/equipment/${params.id}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/equipment/${params.id}`);
       let data = await response.json();
       setEquipment(data);
     }

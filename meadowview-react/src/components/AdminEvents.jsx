@@ -8,7 +8,7 @@ export default function EventsList() {
 
   useEffect(() => {
     const getAllEvents = async () => {
-      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/events");
+      let response = await fetch("https://meadowview-cottage-resort-api.vercel.app/api/events");
       let data = await response.json();
       setEvents(data);
     };

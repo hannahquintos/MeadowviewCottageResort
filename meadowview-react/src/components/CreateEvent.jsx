@@ -27,7 +27,7 @@ export default function CreateEvent() {
 		e.preventDefault();
 
 		try {
-			const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/events/create", formData);
+			const res = await axios.post("https://meadowview-cottage-resort-api.vercel.app/api/events/create", formData);
 
 			if (res.status === 200) {
 				// alert("Event successfully created");

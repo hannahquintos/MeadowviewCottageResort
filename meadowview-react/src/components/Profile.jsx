@@ -9,7 +9,7 @@ export default function singleUser() {
 
   useEffect(() => {
     const getSingleUser = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/users/${params.id}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/users/${params.id}`);
       let data = await response.json();
       setUser(data);
     }

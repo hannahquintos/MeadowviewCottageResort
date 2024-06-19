@@ -26,7 +26,7 @@ export default function MenuListComposition() {
 
   const handleLogout = async () => {
     try {
-        const res = await axios.get("https://meadowview-cottage-resort.vercel.app/api/logout");
+        const res = await axios.get("https://meadowview-cottage-resort-api.vercel.app/api/logout");
         // console.log("res: " + res.data);
 
         if (res.data === "Cookie cleared") {

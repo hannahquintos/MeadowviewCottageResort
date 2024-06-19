@@ -7,7 +7,7 @@ export default function UsersList() {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/users");
+      let response = await fetch("https://meadowview-cottage-resort-api.vercel.app/api/users");
       let data = await response.json();
       setUsers(data);
     };
@@ -30,7 +30,7 @@ export default function UsersList() {
       <div className="contentContainer">
         {
           users
-          .sort((a, b) => a.name.localeCompare(b.name))
+          // .sort((a, b) => a.name.localeCompare(b.name))
           .map((user) => (
             <Link to={`/admin/users/${user._id}`} key={user._id}>
                 <div className="card">

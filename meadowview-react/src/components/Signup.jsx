@@ -29,7 +29,7 @@ export default function Signup() {
         e.preventDefault();
 
         try{
-            const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/signup", formData);
+            const res = await axios.post("https://meadowview-cottage-resort-api.vercel.app/api/signup", formData);
 
             if (res.data === "exist") {
               //if email already exists in the system, show alert

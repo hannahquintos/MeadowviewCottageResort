@@ -13,7 +13,7 @@ export default function ActivityRegistrationsList() {
 
   useEffect(() => {
     const getAllActivities = async () => {
-      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/activities", {
+      let response = await fetch("https://meadowview-cottage-resort-api.vercel.app/api/activities", {
         method: 'GET',
         credentials: 'include' // include cookies in the request
       })
@@ -25,7 +25,7 @@ export default function ActivityRegistrationsList() {
 
   useEffect(() => {
     const getAllActivityRegistrations = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activityRegistrations/${auth.userId}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/activityRegistrations/${auth.userId}`);
       let data = await response.json();
       setActivityRegistrations(data);
     }

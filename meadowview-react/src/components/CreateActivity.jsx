@@ -27,7 +27,7 @@ export default function CreateActivity() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/activities/create", formData);
+		const res = await axios.post("https://meadowview-cottage-resort-api.vercel.app/api/activities/create", formData);
 
 		if (res.status === 200) {
 		// alert("Activity successfully created");

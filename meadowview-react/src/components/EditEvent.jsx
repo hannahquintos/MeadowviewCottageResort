@@ -12,7 +12,7 @@ export default function EditEvent() {
   
     useEffect(() => {
       const getSingleEvent = async () => {
-        let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/events/${params.id}`);
+        let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/events/${params.id}`);
         let data = await response.json();
         setEvent(data);
         setFormData(data);
@@ -45,7 +45,7 @@ export default function EditEvent() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post(`https://meadowview-cottage-resort.vercel.app/api/events/update/${params.id}`, formData);
+		const res = await axios.post(`https://meadowview-cottage-resort-api.vercel.app/api/events/update/${params.id}`, formData);
 
 		if (res.status === 200) {
 		// alert("Event successfully updated");

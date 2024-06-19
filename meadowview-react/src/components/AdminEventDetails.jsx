@@ -24,7 +24,7 @@ export default function singleEvent() {
 
   const deleteEvent = async () => {
     try {
-      const res = await axios.get(`https://meadowview-cottage-resort.vercel.app/api/events/delete/${params.id}`);
+      const res = await axios.get(`https://meadowview-cottage-resort-api.vercel.app/api/events/delete/${params.id}`);
       handleClose();
 
       if (res.status === 200) {
@@ -46,7 +46,7 @@ export default function singleEvent() {
 
   useEffect(() => {
     const getSingleEvent = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/events/${params.id}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/events/${params.id}`);
       let data = await response.json();
       setEvent(data);
     }

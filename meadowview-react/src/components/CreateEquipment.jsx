@@ -26,7 +26,7 @@ export default function CreateEquipment() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/equipment/create", formData);
+		const res = await axios.post("https://meadowview-cottage-resort-api.vercel.app/api/equipment/create", formData);
 
 		if (res.status === 200) {
 		// alert("Equipment successfully created");

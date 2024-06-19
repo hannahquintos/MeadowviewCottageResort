@@ -20,7 +20,7 @@ export default function singleEquipment() {
 
   useEffect(() => {
     const getSingleEquipment = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/equipment/${params.id}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/equipment/${params.id}`);
       let data = await response.json();
       setEquipment(data);
     }
@@ -30,7 +30,7 @@ export default function singleEquipment() {
 
   useEffect(() => {
     const getAllEquipmentBookings = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/equipmentBookings/${auth.userId}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/equipmentBookings/${auth.userId}`);
       let data = await response.json();
       setEquipmentBookings(data);
     }
@@ -42,7 +42,7 @@ export default function singleEquipment() {
   };
 
   const getSingleEquipmentBooking = async (equipmentBookingId) => {
-    const response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/equipmentBookings/details/${equipmentBookingId}`);
+    const response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/equipmentBookings/details/${equipmentBookingId}`);
     const data = await response.json();
     setEquipmentBooking(data);
   };
@@ -83,7 +83,7 @@ export default function singleEquipment() {
           userId: auth.userId
         };
   
-        const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/equipmentBookings/create", formData);
+        const res = await axios.post("https://meadowview-cottage-resort-api.vercel.app/api/equipmentBookings/create", formData);
 
         handleClose();
 
@@ -104,7 +104,7 @@ export default function singleEquipment() {
     const deleteBooking = async (equipmentBookingId) => {
 
       try {
-        const res = await axios.get(`https://meadowview-cottage-resort.vercel.app/api/equipmentBookings/delete/${equipmentBookingId}`);
+        const res = await axios.get(`https://meadowview-cottage-resort-api.vercel.app/api/equipmentBookings/delete/${equipmentBookingId}`);
         handleClose();
   
         if (res.status === 200) {

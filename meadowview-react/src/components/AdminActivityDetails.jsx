@@ -24,7 +24,7 @@ export default function singleActivity() {
 
   const deleteActivity = async () => {
     try {
-      const res = await axios.get(`https://meadowview-cottage-resort.vercel.app/api/activities/delete/${params.id}`);
+      const res = await axios.get(`https://meadowview-cottage-resort-api.vercel.app/api/activities/delete/${params.id}`);
       handleClose();
 
       if (res.status === 200) {
@@ -46,7 +46,7 @@ export default function singleActivity() {
 
   useEffect(() => {
     const getSingleActivity = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activities/${params.id}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/activities/${params.id}`);
       let data = await response.json();
       setActivity(data);
     }

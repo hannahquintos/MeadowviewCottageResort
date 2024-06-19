@@ -11,7 +11,7 @@ export default function EquipmentList() {
 
   useEffect(() => {
     const getAllEquipment = async () => {
-      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/equipment");
+      let response = await fetch("https://meadowview-cottage-resort-api.vercel.app/api/equipment");
       let data = await response.json();
       setEquipment(data);
     }
@@ -20,7 +20,7 @@ export default function EquipmentList() {
 
   useEffect(() => {
     const getAllEquipmentBookings = async () => {
-      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/equipmentBookings/${auth.userId}`);
+      let response = await fetch(`https://meadowview-cottage-resort-api.vercel.app/api/equipmentBookings/${auth.userId}`);
       let data = await response.json();
       setEquipmentBookings(data);
     }
