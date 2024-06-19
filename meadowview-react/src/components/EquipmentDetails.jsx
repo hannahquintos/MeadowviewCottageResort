@@ -88,7 +88,7 @@ export default function singleEquipment() {
         handleClose();
 
         if (res.status === 200) {
-          alert("Equipment booking successfully created");
+          // alert("Equipment booking successfully created");
           navigate("/equipment");
           } else {
           alert("Something went wrong");
@@ -108,7 +108,7 @@ export default function singleEquipment() {
         handleClose();
   
         if (res.status === 200) {
-          alert("Equipment booking successfully deleted");
+          // alert("Equipment booking successfully deleted");
           navigate("/equipment/bookings");
           } else {
           alert("Something went wrong");

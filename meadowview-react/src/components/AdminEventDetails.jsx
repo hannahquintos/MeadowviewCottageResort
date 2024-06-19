@@ -28,8 +28,8 @@ export default function singleEvent() {
       handleClose();
 
       if (res.status === 200) {
-        alert("Event successfully deleted");
-        navigate("/events");
+        // alert("Event successfully deleted");
+        navigate("/admin/events");
         } else {
         alert("Something went wrong");
         }

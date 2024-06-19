@@ -28,8 +28,8 @@ export default function singleActivity() {
       handleClose();
 
       if (res.status === 200) {
-        alert("Activity successfully deleted");
-        navigate("/activities");
+        // alert("Activity successfully deleted");
+        navigate("/admin/activities");
         } else {
         alert("Something went wrong");
         }

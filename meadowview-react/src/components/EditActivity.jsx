@@ -48,7 +48,7 @@ export default function EditActivity() {
 		const res = await axios.post(`http://localhost:3000/api/activities/update/${params.id}`, formData);
 
 		if (res.status === 200) {
-		alert("Activity successfully updated");
+		// alert("Activity successfully updated");
 		navigate(`/admin/activities/${activity._id}`);
 		} else {
 		alert("Something went wrong");

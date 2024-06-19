@@ -185,11 +185,14 @@ app.post("/api/users/update/:id", async (request, response) => {
   let lastName = request.body.lastName;
   let email = request.body.email;
   let phone = request.body.phone;
+  let role = request.body.role;
+
   let user = {
     "firstName": firstName,
     "lastName": lastName,
     "email": email,
     "phone": phone,
+    "role": role
   };
 
   try {
@@ -681,7 +684,8 @@ async function editUser(filter, user){
       "firstName": user.firstName,
       "lastName": user.lastName,
       "email": user.email,
-      "phone": user.phone
+      "phone": user.phone,
+      "role": user.role
     },
   };
   const result = await db.collection("users").updateOne(filter, updateUser);

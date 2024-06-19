@@ -47,7 +47,7 @@ export default function EditUser() {
 		const res = await axios.post(`http://localhost:3000/api/users/update/${params.id}`, formData);
 
 		if (res.status === 200) {
-		alert("User account successfully updated");
+		// alert("User account successfully updated");
 		navigate(`/admin/users/${user._id}`);
 		} else {
 		alert("Something went wrong");

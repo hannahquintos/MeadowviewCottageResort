@@ -27,8 +27,8 @@ export default function singleEquipment() {
       handleClose();
 
       if (res.status === 200) {
-        alert("Equipment successfully deleted");
-        navigate("/equipment");
+        // alert("Equipment successfully deleted");
+        navigate("/admin/equipment");
         } else {
         alert("Something went wrong");
         }

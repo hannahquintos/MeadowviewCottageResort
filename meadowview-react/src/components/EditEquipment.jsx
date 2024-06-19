@@ -47,7 +47,7 @@ export default function EditEquipment() {
 		const res = await axios.post(`http://localhost:3000/api/equipment/update/${params.id}`, formData);
 
 		if (res.status === 200) {
-		alert("Equipment successfully updated");
+		// alert("Equipment successfully updated");
 		navigate(`/admin/equipment/${equipment._id}`);
 		} else {
 		alert("Something went wrong");

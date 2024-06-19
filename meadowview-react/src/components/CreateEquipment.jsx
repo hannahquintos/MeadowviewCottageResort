@@ -29,8 +29,8 @@ export default function CreateEquipment() {
 		const res = await axios.post("http://localhost:3000/api/equipment/create", formData);
 
 		if (res.status === 200) {
-		alert("Equipment successfully created");
-		navigate("/equipment");
+		// alert("Equipment successfully created");
+		navigate("/admin/equipment");
 		} else {
 		alert("Something went wrong");
 		}

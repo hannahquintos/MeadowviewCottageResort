@@ -48,7 +48,7 @@ export default function EditEvent() {
 		const res = await axios.post(`http://localhost:3000/api/events/update/${params.id}`, formData);
 
 		if (res.status === 200) {
-		alert("Event successfully updated");
+		// alert("Event successfully updated");
 		navigate(`/admin/events/${event._id}`);
 		} else {
 		alert("Something went wrong");

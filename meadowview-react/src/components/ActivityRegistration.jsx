@@ -41,7 +41,7 @@ export default function CreateRegistration() {
 			const res = await axios.post("http://localhost:3000/api/activityRegistrations/create", {activityId: activity._id, userId: auth.userId, participants: formData});
 
 			if (res.status === 200) {
-                alert("Activity registration was successful");
+                // alert("Activity registration was successful");
                 navigate("/activities");
 			} else {
 			    alert("Something went wrong");

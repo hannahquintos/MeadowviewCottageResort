@@ -30,8 +30,8 @@ export default function CreateActivity() {
 		const res = await axios.post("http://localhost:3000/api/activities/create", formData);
 
 		if (res.status === 200) {
-		alert("Activity successfully created");
-		navigate("/activities");
+		// alert("Activity successfully created");
+		navigate("/admin/activities");
 		} else {
 		alert("Something went wrong");
 		}

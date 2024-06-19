@@ -27,7 +27,7 @@ export default function singleUser() {
       handleClose();
 
       if (res.status === 200) {
-        alert("User successfully deleted");
+        // alert("User successfully deleted");
         navigate("/admin/users");
         } else {
         alert("Something went wrong");

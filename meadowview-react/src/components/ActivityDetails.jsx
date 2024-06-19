@@ -73,7 +73,7 @@ export default function SingleActivity() {
       handleClose();
 
       if (res.status === 200) {
-        alert("Activity registration successfully deleted");
+        // alert("Activity registration successfully deleted");
         navigate("/activities/registrations");
         } else {
         alert("Something went wrong");

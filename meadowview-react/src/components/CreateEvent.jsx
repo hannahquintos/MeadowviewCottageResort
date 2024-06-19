@@ -30,8 +30,8 @@ export default function CreateEvent() {
 			const res = await axios.post("http://localhost:3000/api/events/create", formData);
 
 			if (res.status === 200) {
-				alert("Event successfully created");
-				navigate("/events");
+				// alert("Event successfully created");
+				navigate("/admin/events");
 			} else {
 				alert("Something went wrong");
 			}
