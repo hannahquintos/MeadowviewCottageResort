@@ -71,7 +71,7 @@ export default function EditEquipment() {
 						<label htmlFor="equipmentName">Equipment Name</label>
 					</div>
 					<div>
-						<input id="equipmentName" type="text" name="equipmentName" value={formData.equipmentName} onChange={handleChange}/>
+						<input required id="equipmentName" type="text" name="equipmentName" value={formData.equipmentName} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -79,7 +79,7 @@ export default function EditEquipment() {
 						<label htmlFor="condition">Condition</label>
 					</div>
 					<div>
-						<select name="condition" value={formData.condition} onChange={handleChange}>
+						<select required name="condition" value={formData.condition} onChange={handleChange}>
 							<option value="">Select a condition</option>
 							<option value="Excellent">Excellent</option>
 							<option value="Good">Good</option>
@@ -92,7 +92,7 @@ export default function EditEquipment() {
 						<label htmlFor="availability">Availability</label>
 					</div>
 					<div>
-						<select name="availability" value={formData.availability} onChange={handleChange}>
+						<select required name="availability" value={formData.availability} onChange={handleChange}>
 							<option value="">Select availability</option>
 							<option value="Available">Available</option>
 							<option value="Unavailable">Unavailable</option>
@@ -104,7 +104,7 @@ export default function EditEquipment() {
 						<label htmlFor="image">Image</label>
 					</div>
 					<div>
-						<input id="image" type="text" name="image" value={formData.image} onChange={handleChange}/>
+						<input required id="image" type="text" name="image" value={formData.image} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -112,7 +112,7 @@ export default function EditEquipment() {
 						<label htmlFor="description">Description</label>
 					</div>
 					<div>
-						<textarea id="description" name="description" value={formData.description} onChange={handleChange}/>
+						<textarea required id="description" name="description" value={formData.description} onChange={handleChange}/>
 					</div>
 				</div>
 				<div className="actionBtns">

@@ -16,6 +16,8 @@ export default function Login() {
 		password: ''
 	  });
 
+    const [errorMessage, setErrorMessage] = useState('');
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({
@@ -37,12 +39,14 @@ export default function Login() {
             navigate(from, { replace: true });
             // navigate("/activities");
           } else {
-              alert("Incorrect email or password");
+              // alert("Incorrect email or password");
+              setErrorMessage("Incorrect email or password");
           }
       }
       catch(e){
           console.log(e);
-          alert("Invalid email or password");
+          // alert("Incorrect email or password");
+          setErrorMessage("Incorrect email or password");
       }
   }
 
@@ -50,13 +54,16 @@ export default function Login() {
     return(
       <div className='formContainer'>
         <h1>Login</h1>
+        {errorMessage && (
+          <p className="errorMessage"> *{errorMessage} </p>
+        )}
         <form onSubmit={handleSubmit}>
             <div>
                 <div>
                     <label htmlFor="email">Email</label>
                 </div>
                 <div>
-                    <input type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
+                    <input required type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -64,7 +71,7 @@ export default function Login() {
                     <label htmlFor="password">Password</label>
                 </div>
                 <div>
-                    <input type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
+                    <input required type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
                 </div>
             </div>
             <div>

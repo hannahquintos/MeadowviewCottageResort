@@ -54,7 +54,7 @@ export default function CreateActivity() {
 						<label htmlFor="activityName">Activity Name</label>
 					</div>
 					<div>
-						<input id="activityName" type="text" name="activityName" value={formData.activityName} onChange={handleChange}/>
+						<input required id="activityName" type="text" name="activityName" value={formData.activityName} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -62,7 +62,7 @@ export default function CreateActivity() {
 						<label htmlFor="startTime">Start Time</label>
 					</div>
 					<div>
-						<input id="startTime" type="datetime-local" name="startTime" value={formData.startTime} onChange={handleChange}/>
+						<input required id="startTime" type="datetime-local" name="startTime" value={formData.startTime} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -70,7 +70,7 @@ export default function CreateActivity() {
 						<label htmlFor="endTime">End Time</label>
 					</div>
 					<div>
-						<input id="endTime" type="datetime-local" name="endTime" value={formData.endTime} onChange={handleChange}/>
+						<input required id="endTime" type="datetime-local" name="endTime" value={formData.endTime} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -78,7 +78,7 @@ export default function CreateActivity() {
 						<label htmlFor="location">Location</label>
 					</div>
 					<div>
-						<input id="location" type="text" name="location" value={formData.location} onChange={handleChange}/>
+						<input required id="location" type="text" name="location" value={formData.location} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -86,7 +86,7 @@ export default function CreateActivity() {
 						<label htmlFor="image">Image</label>
 					</div>
 					<div>
-						<input id="image" type="text" name="image" value={formData.image} onChange={handleChange}/>
+						<input required id="image" type="text" name="image" value={formData.image} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -94,7 +94,7 @@ export default function CreateActivity() {
 						<label htmlFor="description">Description</label>
 					</div>
 					<div>
-						<textarea id="description" name="description" value={formData.description} onChange={handleChange}/>
+						<textarea required id="description" name="description" value={formData.description} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>

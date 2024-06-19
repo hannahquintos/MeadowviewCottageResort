@@ -71,7 +71,7 @@ export default function EditUser() {
 						<label htmlFor="firstName">First Name</label>
 					</div>
 					<div>
-						<input id="firstName" type="text" name="firstName" value={formData.firstName} onChange={handleChange}/>
+						<input required id="firstName" type="text" name="firstName" value={formData.firstName} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -79,7 +79,7 @@ export default function EditUser() {
 						<label htmlFor="lastName">Last Name</label>
 					</div>
 					<div>
-						<input id="lastName" type="text" name="lastName" value={formData.lastName} onChange={handleChange}/>
+						<input required id="lastName" type="text" name="lastName" value={formData.lastName} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -87,7 +87,7 @@ export default function EditUser() {
 						<label htmlFor="email">Email</label>
 					</div>
 					<div>
-						<input id="email" type="text" name="email" value={formData.email} onChange={handleChange}/>
+						<input required id="email" type="text" name="email" value={formData.email} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -95,7 +95,7 @@ export default function EditUser() {
 						<label htmlFor="phone">Phone Number</label>
 					</div>
 					<div>
-						<input id="phone" type="text" name="phone" value={formData.phone} onChange={handleChange}/>
+						<input required id="phone" type="text" name="phone" value={formData.phone} onChange={handleChange}/>
 					</div>
 				</div>
 				<div className="actionBtns">

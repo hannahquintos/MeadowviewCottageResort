@@ -15,6 +15,8 @@ export default function Signup() {
         role: 'Guest'
 	  });
 
+    const [errorMessage, setErrorMessage] = useState('');
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({
@@ -31,7 +33,8 @@ export default function Signup() {
 
             if (res.data === "exist") {
               //if email already exists in the system, show alert
-              alert("An account with this email already exists");
+              //alert("An account with this email already exists");
+              setErrorMessage("An account with this email already exists");
             } else if (res.data === "notexist") {
               //if email is does not exist, redirect to home page
               navigate("/login");
@@ -39,7 +42,9 @@ export default function Signup() {
         }
         catch(e){
             console.log(e);
-            alert("Invalid email");
+            // alert("Invalid email");
+            setErrorMessage("Invalid email");
+
         }
     }
 
@@ -47,13 +52,16 @@ export default function Signup() {
     return(
       <div className="formContainer">
         <h1>Sign Up</h1>
+        {errorMessage && (
+          <p className="errorMessage"> *{errorMessage} </p>
+        )}
         <form onSubmit={handleSubmit}>
             <div>
                 <div>
                     <label htmlFor="email">Email</label>
                 </div>
                 <div>
-                    <input type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
+                    <input required type="email" name="email" id="email" value={formData.email} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -61,7 +69,7 @@ export default function Signup() {
                     <label htmlFor="password">Password</label>
                 </div>
                 <div>
-                    <input type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
+                    <input required type="password" name="password" id="password" value={formData.password} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -69,7 +77,7 @@ export default function Signup() {
                     <label htmlFor="firstName">First Name</label>
                 </div>
                 <div>
-                    <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleChange}/> 
+                    <input required type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -77,7 +85,7 @@ export default function Signup() {
                     <label htmlFor="lastName">Last Name</label>
                 </div>
                 <div>
-                    <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange}/> 
+                    <input required type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange}/> 
                 </div>
             </div>
             <div>
@@ -85,7 +93,7 @@ export default function Signup() {
                     <label htmlFor="phone">Phone Number</label>
                 </div>
                 <div>
-                    <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange}/> 
+                    <input required type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange}/> 
                 </div>
             </div>
             <div>

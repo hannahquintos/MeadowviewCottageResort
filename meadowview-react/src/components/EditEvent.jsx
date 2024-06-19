@@ -72,7 +72,7 @@ export default function EditEvent() {
 						<label htmlFor="eventName">Event Name</label>
 					</div>
 					<div>
-						<input id="eventName" type="text" name="eventName" value={formData.eventName} onChange={handleChange}/>
+						<input required id="eventName" type="text" name="eventName" value={formData.eventName} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -80,7 +80,7 @@ export default function EditEvent() {
 						<label htmlFor="startTime">Start Time</label>
 					</div>
 					<div>
-						<input id="startTime" type="datetime-local" name="startTime" value={formData.startTime} onChange={handleChange}/>
+						<input required id="startTime" type="datetime-local" name="startTime" value={formData.startTime} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -88,7 +88,7 @@ export default function EditEvent() {
 						<label htmlFor="endTime">End Time</label>
 					</div>
 					<div>
-						<input id="endTime" type="datetime-local" name="endTime" value={formData.endTime} onChange={handleChange}/>
+						<input required id="endTime" type="datetime-local" name="endTime" value={formData.endTime} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -96,7 +96,7 @@ export default function EditEvent() {
 						<label htmlFor="location">Location</label>
 					</div>
 					<div>
-						<input id="location" type="text" name="location" value={formData.location} onChange={handleChange}/>
+						<input required id="location" type="text" name="location" value={formData.location} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -104,7 +104,7 @@ export default function EditEvent() {
 						<label htmlFor="image">Image</label>
 					</div>
 					<div>
-						<input id="image" type="text" name="image" value={formData.image} onChange={handleChange}/>
+						<input required id="image" type="text" name="image" value={formData.image} onChange={handleChange}/>
 					</div>
 				</div>
 				<div>
@@ -112,7 +112,7 @@ export default function EditEvent() {
 						<label htmlFor="description">Description</label>
 					</div>
 					<div>
-						<textarea id="description" name="description" value={formData.description} onChange={handleChange}/>
+						<textarea required id="description" name="description" value={formData.description} onChange={handleChange}/>
 					</div>
 				</div>
 				<div className="actionBtns">

@@ -382,3 +382,7 @@ textarea{
 .formContainer{
   padding-top: 20px;
 }
+
+.errorMessage{
+  color: #CC5454;
+}
