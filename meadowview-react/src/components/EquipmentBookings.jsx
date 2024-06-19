@@ -13,7 +13,7 @@ export default function EquipmentBookingsList() {
 
   useEffect(() => {
     const getAllEquipment = async () => {
-      let response = await fetch("http://localhost:3000/api/equipment");
+      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/equipment");
       let data = await response.json();
       setEquipment(data);
     }
@@ -22,7 +22,7 @@ export default function EquipmentBookingsList() {
 
   useEffect(() => {
     const getAllEquipmentBookings = async () => {
-      let response = await fetch(`http://localhost:3000/api/equipmentBookings/${auth.userId}`);
+      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/equipmentBookings/${auth.userId}`);
       let data = await response.json();
       setEquipmentBookings(data);
     }

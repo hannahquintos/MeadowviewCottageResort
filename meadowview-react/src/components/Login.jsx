@@ -32,7 +32,7 @@ export default function Login() {
       e.preventDefault();
 
       try{
-          const res = await axios.post("http://localhost:3000/api/login", formData);
+          const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/login", formData);
 
           if (res.data.status === "Success") {
             setAuth({ email: formData.email, token: res.data.token, role: res.data.role, userId: res.data.userId});

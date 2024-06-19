@@ -12,7 +12,7 @@ export default function EditUser() {
   
     useEffect(() => {
       const getSingleUser = async () => {
-        let response = await fetch(`http://localhost:3000/api/users/${params.id}`);
+        let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/users/${params.id}`);
         let data = await response.json();
         setUser(data);
         setFormData(data);
@@ -44,7 +44,7 @@ export default function EditUser() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post(`http://localhost:3000/api/users/update/${params.id}`, formData);
+		const res = await axios.post(`https://meadowview-cottage-resort.vercel.app/api/users/update/${params.id}`, formData);
 
 		if (res.status === 200) {
 		// alert("Profile successfully updated");

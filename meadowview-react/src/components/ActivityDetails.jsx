@@ -20,7 +20,7 @@ export default function SingleActivity() {
 
   useEffect(() => {
     const getSingleActivity = async () => {
-      let response = await fetch(`http://localhost:3000/api/activities/${params.id}`);
+      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activities/${params.id}`);
       let data = await response.json();
       setActivity(data);
     }
@@ -30,7 +30,7 @@ export default function SingleActivity() {
 
   useEffect(() => {
     const getAllActivityRegistrations= async () => {
-      let response = await fetch(`http://localhost:3000/api/activityRegistrations/${auth.userId}`);
+      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activityRegistrations/${auth.userId}`);
       let data = await response.json();
       setActivityRegistrations(data);
     }
@@ -42,7 +42,7 @@ export default function SingleActivity() {
   };
 
   const getSingleActivityRegistration = async (activityRegistrationId) => {
-    const response = await fetch(`http://localhost:3000/api/activityRegistrations/details/${activityRegistrationId}`);
+    const response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activityRegistrations/details/${activityRegistrationId}`);
     const data = await response.json();
     setActivityRegistration(data);
     // console.log("activity registration: ", data);
@@ -69,7 +69,7 @@ export default function SingleActivity() {
 
   const deleteRegistration = async (activityRegistrationId) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/activityRegistrations/delete/${activityRegistrationId}`);
+      const res = await axios.get(`https://meadowview-cottage-resort.vercel.app/api/activityRegistrations/delete/${activityRegistrationId}`);
       handleClose();
 
       if (res.status === 200) {

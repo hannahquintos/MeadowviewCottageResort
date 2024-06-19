@@ -17,7 +17,7 @@ export default function CreateRegistration() {
 
     useEffect(() => {
         const getSingleActivity = async () => {
-        let response = await fetch(`http://localhost:3000/api/activities/${params.id}`);
+        let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activities/${params.id}`);
         let data = await response.json();
         setActivity(data);
         }
@@ -40,7 +40,7 @@ export default function CreateRegistration() {
         e.preventDefault();
 
 		try {
-			const res = await axios.post("http://localhost:3000/api/activityRegistrations/create", {activityId: activity._id, userId: auth.userId, participants: formData});
+			const res = await axios.post("https://meadowview-cottage-resort.vercel.app/api/activityRegistrations/create", {activityId: activity._id, userId: auth.userId, participants: formData});
 
 			if (res.status === 200) {
                 // alert("Activity registration was successful");

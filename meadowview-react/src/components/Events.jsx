@@ -14,7 +14,7 @@ export default function EventsList() {
 
   useEffect(() => {
     const getAllEvents = async () => {
-      let response = await fetch("http://localhost:3000/api/events");
+      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/events");
       let data = await response.json();
       setEvents(data);
     };
@@ -23,7 +23,7 @@ export default function EventsList() {
 
   useEffect(() => {
     const getAllEventFavourites = async () => {
-      let response = await fetch(`http://localhost:3000/api/eventFavourites/${auth.userId}`);
+      let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/eventFavourites/${auth.userId}`);
       let data = await response.json();
       setEventFavourites(data);
     }
@@ -45,7 +45,7 @@ export default function EventsList() {
         //remove from favourites
         const favouriteToDelete = eventFavourites.find(favourite => favourite.eventId === eventId);
 
-        await axios.get(`http://localhost:3000/api/eventFavourites/delete/${favouriteToDelete._id}`);
+        await axios.get(`https://meadowview-cottage-resort.vercel.app/api/eventFavourites/delete/${favouriteToDelete._id}`);
 
       } else {
         //add to favourites
@@ -54,7 +54,7 @@ export default function EventsList() {
           userId: auth.userId
         };
 
-        await axios.post("http://localhost:3000/api/eventFavourites/create", formData);
+        await axios.post("https://meadowview-cottage-resort.vercel.app/api/eventFavourites/create", formData);
 
       }
       //update eventFavourites after adding/removing

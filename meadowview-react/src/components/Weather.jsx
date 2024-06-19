@@ -5,7 +5,7 @@ const [weather, setWeather] = useState(null);
 
 useEffect(() => {
     const getWeather = async () => {
-    let response = await fetch("http://localhost:3000/api/weather");
+    let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/weather");
     let data = await response.json();
     setWeather(data);
     }

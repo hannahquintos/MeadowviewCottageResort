@@ -26,7 +26,8 @@ app.use(cookieParser());
 
 //allow requests from all servers
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: [""],
+  methods: ["POST", "GET"],
   credentials: true
 }));
 
@@ -56,6 +57,10 @@ app.use(cors({
 
 
 //API endpoints
+
+app.get("/", (request, response) => {
+  express.response.json("Meadowview Cottage Resort API");
+})
 
 /*
  * retrieve values from the login form

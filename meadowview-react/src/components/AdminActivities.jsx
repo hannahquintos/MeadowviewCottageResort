@@ -9,7 +9,7 @@ export default function ActivitiesList() {
 
   useEffect(() => {
     const getAllActivities = async () => {
-      let response = await fetch("http://localhost:3000/api/activities", {
+      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/activities", {
         method: 'GET',
         credentials: 'include' // include cookies in the request
       })

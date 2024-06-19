@@ -7,7 +7,7 @@ export default function UsersList() {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      let response = await fetch("http://localhost:3000/api/users");
+      let response = await fetch("https://meadowview-cottage-resort.vercel.app/api/users");
       let data = await response.json();
       setUsers(data);
     };

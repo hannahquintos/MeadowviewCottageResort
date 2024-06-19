@@ -12,7 +12,7 @@ export default function EditActivity() {
   
     useEffect(() => {
       const getSingleActivity = async () => {
-        let response = await fetch(`http://localhost:3000/api/activities/${params.id}`);
+        let response = await fetch(`https://meadowview-cottage-resort.vercel.app/api/activities/${params.id}`);
         let data = await response.json();
         setActivity(data);
         setFormData(data);
@@ -45,7 +45,7 @@ export default function EditActivity() {
 	e.preventDefault();
 
 	try {
-		const res = await axios.post(`http://localhost:3000/api/activities/update/${params.id}`, formData);
+		const res = await axios.post(`https://meadowview-cottage-resort.vercel.app/api/activities/update/${params.id}`, formData);
 
 		if (res.status === 200) {
 		// alert("Activity successfully updated");
