@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 //allow requests from all servers
 app.use(cors({
-  origin: [""],
+  origin: ["https://meadowview-cottage-resort-henna.vercel.app"],
   methods: ["POST", "GET"],
   credentials: true
 }));
