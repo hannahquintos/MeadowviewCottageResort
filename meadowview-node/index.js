@@ -26,7 +26,8 @@ app.use(cookieParser());
 
 //allow requests from all servers
 app.use(cors({
-  origin: ["https://meadowview-cottage-resort.vercel.app"],
+  // origin: ["https://meadowview-cottage-resort.vercel.app"],
+  origin: ["https://localhost:5173/"],
   methods: ["POST", "GET"],
   credentials: true
 }));
