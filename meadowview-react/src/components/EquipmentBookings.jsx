@@ -58,7 +58,12 @@ export default function EquipmentBookingsList() {
                 <div className="card">
                   <img src={equipmentPiece.image} alt={equipmentPiece.equipmentName} />
                   <div className="cardText">
-                    <p className={color}>{equipmentPiece.availability}</p>
+                    {isEquipmentBooked(equipmentPiece._id) && (
+                        <div className="registered">
+                          <p>Booked</p>
+                          <CheckIcon />
+                        </div>
+                    )}
                     <h2>{equipmentPiece.equipmentName}</h2>
                     <p>{equipmentPiece.condition} Condition</p>
                   </div>
