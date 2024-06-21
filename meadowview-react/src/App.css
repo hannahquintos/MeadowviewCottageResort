@@ -423,3 +423,14 @@ textarea{
   display: flex;
   justify-content: space-between;
 }
+
+.activitiesForWeather{
+  padding-top: 0.75em;
+  display: flex;
+  justify-content:space-around;
+  /* gap: 3em; */
+}
+
+.activity{
+  text-align: center;
+}
