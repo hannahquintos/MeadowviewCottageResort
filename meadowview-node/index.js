@@ -24,13 +24,17 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-//allow requests from all servers
+//allow requests from server
 app.use(cors({
-  // origin: ["https://meadowview-cottage-resort.vercel.app"],
-  origin: ["https://localhost:5173/"],
+  origin: ["https://meadowview-cottage-resort.vercel.app"],
   methods: ["POST", "GET"],
   credentials: true
 }));
+
+// app.use(cors({
+//   origin: ["http://localhost:5173"],
+//   credentials: true
+// }));
 
 /*
  * to verify jwt
@@ -352,6 +356,55 @@ app.get("/api/events/delete/:id", async (request, response) => {
   try {
     await deleteEvent(id);
     response.json("Event successfully deleted");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+/*
+ * returns: an array of users that are Staff
+ */
+app.get("/api/staff", async (request, response) => {
+  let staff = await getAllStaff();
+  response.json(staff); //send JSON object with appropriate JSON headers
+});
+
+/*
+ * returns: an array of staff for a given eventId
+ */
+app.get("/api/eventStaff/:id", async (request, response) => {
+  let eventId = request.params.id;
+  let eventStaff = await getEventStaffWithUserDetails(eventId);
+  response.json(eventStaff); //send JSON object with appropriate JSON headers
+});
+
+// retrieve values from submitted create event staff POST form
+app.post("/api/eventStaff/create", async (request, response) => {
+  let eventId = request.body.eventId;
+  let userId = request.body.userId;
+
+  let newEventStaff = {
+    eventId: eventId,
+    userId: userId
+  };
+
+  try {
+    await addEventStaff(newEventStaff);
+    response.json("Event Staff successfully created");
+  } catch (e) {
+    console.log("An error occurred");
+    response.json(e);
+  }
+});
+
+// get event Staff to delete
+app.get("/api/eventStaff/delete/:id", async (request, response) => {
+  let id = request.params.id;
+  
+  try {
+    await deleteEventStaff(id);
+    response.json("Event Staff successfully deleted");
   } catch (e) {
     console.log("An error occurred");
     response.json(e);
@@ -787,6 +840,55 @@ async function deleteEvent(id) {
   }
 }
 
+//Function to select all documents in the users collection that have a Staff role
+async function getAllStaff() {
+  db = await connection();
+  const results = db.collection("users").find({ role: "Staff" });  
+  let res = await results.toArray();
+  return res;
+}
+
+//Function to select all documents in the eventStaff collection for a given eventId
+async function getEventStaff(eventId) {
+  db = await connection();
+  const results = await db.collection('eventStaff').find({ eventId: eventId });
+  let res = await results.toArray();
+  return res;
+}
+
+//Function to get all documents in the eventStaff collection for a given eventId and get the staffs' user details
+async function getEventStaffWithUserDetails(eventId) {
+    const users = await getAllUsers();
+    const eventStaff = await getEventStaff(eventId);
+
+    //combine data from eventStaff and users collections into one array
+    const results = eventStaff.map(staff => {
+      const user = users.find(user => user._id.toString() === staff.userId);
+      return {
+        ...staff,
+        userDetails: user || null
+      };
+    });
+    return results;
+}
+
+//Function to insert an eventStaff document
+async function addEventStaff(eventStaffData) {
+  db = await connection();
+  let status = await db.collection("eventStaff").insertOne(eventStaffData);
+}
+
+//Function to delete an eventStaff document
+async function deleteEventStaff(id) {
+  db = await connection();
+  const eventStaffDeleteId = { _id: new ObjectId(String(id)) };
+  const result = await db.collection("eventStaff").deleteOne(eventStaffDeleteId);
+  if (result.deletedCount == 1){
+    console.log("delete successful");
+  }
+}
+
+
 //Function to select all documents in the activities collection
 async function getAllActivities() {
   db = await connection();
@@ -966,3 +1068,4 @@ async function deleteEquipment(id) {
     console.log("delete successful");
   }
 }
+

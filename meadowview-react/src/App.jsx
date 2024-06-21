@@ -35,6 +35,7 @@ import Users from "./pages/Users";
 import CreateUser from "./pages/CreateUser";
 import User from "./pages/UserDetails";
 import EditUser from "./pages/EditUser";
+import AssignEventStaff from "./pages/AssignEventStaff";
 
 import './App.css'
 
@@ -85,6 +86,7 @@ function App() {
               <Route path="/admin/activities/:id/edit" element={<EditActivity />} />
               <Route path="/admin/events" element={<AdminEvents />} />
               <Route path="/admin/events/:id" element={<AdminEvent />} />
+              <Route path="/admin/events/:id/assignStaff" element={<AssignEventStaff />} />
               <Route path="/admin/events/add" element={<CreateEvent />} />
               <Route path="/admin/events/:id/edit" element={<EditEvent />} />
               <Route path="/admin/equipment" element={<AdminEquipment />} />

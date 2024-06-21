@@ -340,11 +340,11 @@ textarea{
   gap: 0.25em;
 }
 
-.registrationContent{
+.registrationContent, .staffContent{
   padding: 0 50px 50px 70px;
 }
 
-.bookingHeading{
+.bookingHeading, .staffHeading{
   font-size: 1.2em;
 }
 
@@ -413,4 +413,13 @@ textarea{
 
 .heartIcon{
   font-size: 2em !important;
+}
+
+#staffTableHeading{
+  font-weight: 600 !important;
+}
+
+#assignStaffHeader{
+  display: flex;
+  justify-content: space-between;
 }
