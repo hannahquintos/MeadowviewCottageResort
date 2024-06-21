@@ -12,18 +12,10 @@ export default function Header() {
   return(
     <header>
       <div className="contentWrapper">
-          <div id="headerContent">
-              <div id="siteName">
-                  <img src="/meadowview-logo.svg" alt="" />
-                  {auth?.role === 'Guest' && <h2><a href="/home">Meadowview Cottage Resort</a></h2>}
-                  {auth?.role === 'Admin' && <h2><a href="/admin">Meadowview Cottage Resort</a></h2>}
-                  {!auth?.role && <h2><a href="/">Meadowview Cottage Resort</a></h2>}
-              </div>
-              {/* change nav links based on user */}
-              {auth?.role === 'Guest' && <GuestNav />}
-              {auth?.role === 'Admin' && <AdminNav />}
-              {!auth?.role && <NavLoggedOut />}
-          </div>
+          {/* change nav links based on user */}
+          {auth?.role === 'Guest' && <GuestNav />}
+          {auth?.role === 'Admin' && <AdminNav />}
+          {!auth?.role && <NavLoggedOut />}
       </div>
     </header>
   );
