@@ -99,6 +99,7 @@ export default function CreateUser() {
                         <option value="">Select a role</option>
                         <option value="Guest">Guest</option>
                         <option value="Admin">Admin</option>
+                        <option value="Staff">Staff</option>
                     </select>
                 </div>
 			</div>
