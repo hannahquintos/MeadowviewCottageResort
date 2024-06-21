@@ -14,7 +14,7 @@ export default function Header() {
       <div className="contentWrapper">
           <div id="headerContent">
               <div id="siteName">
-                  <img src="./src/assets/meadowview-logo.svg" alt="" />
+                  {/* <img src="./src/assets/meadowview-logo.svg" alt="" /> */}
                   <h2><a href="/">Meadowview Cottage Resort</a></h2>
               </div>
               {/* change nav links based on user */}
