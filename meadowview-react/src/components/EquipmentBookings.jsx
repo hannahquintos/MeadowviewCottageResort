@@ -3,7 +3,8 @@ import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import Weather from "./Weather";
 import useAuth from '../hooks/useAuth';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CheckIcon from '@mui/icons-material/Check';
+
 
 export default function EquipmentBookingsList() {
 
