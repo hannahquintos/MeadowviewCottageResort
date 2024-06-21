@@ -44,7 +44,7 @@ export default function CreateRegistration() {
 
 			if (res.status === 200) {
                 // alert("Activity registration was successful");
-                navigate("/activities");
+                navigate("/activities/registrations");
 			} else {
 			    alert("Something went wrong");
 			}
