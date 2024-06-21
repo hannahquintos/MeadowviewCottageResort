@@ -89,7 +89,7 @@ export default function singleEquipment() {
 
         if (res.status === 200) {
           // alert("Equipment booking successfully created");
-          navigate("/equipment");
+          navigate("/equipment/bookings");
           } else {
           alert("Something went wrong");
           }
